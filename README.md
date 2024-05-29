@@ -9,7 +9,5 @@ Yêu cầu BTL:<br/>
 - Chương trình được làm thành 2 project riêng, một project viết bằng C, một project viết bằng C++.<br/>
 - Các nhóm làm việc chung trên GitHub. Cô sẽ kiểm tra code của từng thành viên đẩy lên GitHub.<br/>
 <br/>
-![ý tưởng menu_240529_153811_0](https://github.com/NamAnh2k5/BTL-Ky-thuat-lap-trinh/assets/86111329/463d8d6c-0913-45d9-8ee3-0e9cec6803d0)
-<br/>
 <img src="https://github.com/NamAnh2k5/BTL-Ky-thuat-lap-trinh/blob/main/img/%C3%BD%20t%C6%B0%E1%BB%9Fng%20menu_240529_153811_0.png">
 <br/>
