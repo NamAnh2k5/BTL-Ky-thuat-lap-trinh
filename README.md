@@ -12,3 +12,6 @@ Yêu cầu BTL:<br/>
 Ý tưởng cho Menu:<br/>
 <img src="https://github.com/NamAnh2k5/BTL-Ky-thuat-lap-trinh/blob/main/img/%C3%BD%20t%C6%B0%E1%BB%9Fng%20menu_240529_153811_0.png">
 <br/>
+Ý tưởng lưu đồ rẽ hướng từ Menu:<br/>
+![KTLT](https://github.com/NamAnh2k5/BTL-Ky-thuat-lap-trinh/assets/86111329/629f68ca-31b1-4c6e-a650-4bae1ba69ac7)
+<br/>
