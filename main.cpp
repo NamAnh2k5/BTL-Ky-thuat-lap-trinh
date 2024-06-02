@@ -1,7 +1,59 @@
-#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+void add(); //hàm nhập dữ liệu
+void remove(); //hàm xoá dữ liệu
+void modify(); //hàm sửa dữ liệu
+void find(); //hàm tìm kiếm dữ liệu
+void arrange(); //hàm sắp xếp dữ liệu
+void statistic(); //hàm thống kê
+
+void menu() {
+    char symbol;
+    cout << "[+] Nhap du lieu" << endl;
+    cout << "[-] Xoa du lieu" << endl;
+    cout << "[~] Sua du lieu" << endl;
+    cout << "[/] Tim kiem du lieu" << endl;
+    cout << "[#] Sap xep du lieu" << endl;
+    cout << "[=] Thong ke du lieu" << endl;
+    cout << "Nhap ky tu tuong ung voi hanh dong ban muon thuc hien: ";
+    cin >> symbol;
+
+    switch(symbol) {
+        case '+':
+            system("cls");
+            cout << "add" << endl;
+            break;
+        case '-':
+            system("cls");
+            cout << "remove" << endl;
+            break;
+        case '~':
+            system("cls");
+            cout << "modify" << endl;
+            break;
+        case '/':
+            system("cls");
+            cout << "find" << endl;
+            break;
+        case '#':
+            system("cls");
+            cout << "arrange" << endl;
+            break;
+        case '=':
+            system("cls");
+            cout << "statistic" << endl;
+            break;
+        default:
+            system("cls");
+            cout << "khong tim thay hanh dong phu hop!";
+            break;
+    }
+
+}
 
 int main() {
-  printf("BTL KTLT C C++");
-  printf("\nTest commit from github app");
-  printf("\nTest commit from vscode via git");
+    menu();
+    return 0;
 }
