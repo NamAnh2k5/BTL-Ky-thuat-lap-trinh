@@ -11,12 +11,12 @@ void statistic(); //hàm thống kê
 
 void menu() {
     char symbol;
-    cout << "[+] Nhap du lieu" << endl;
-    cout << "[-] Xoa du lieu" << endl;
-    cout << "[~] Sua du lieu" << endl;
-    cout << "[/] Tim kiem du lieu" << endl;
-    cout << "[#] Sap xep du lieu" << endl;
-    cout << "[=] Thong ke du lieu" << endl;
+    cout << "[1] Nhap du lieu" << endl;
+    cout << "[2] Xoa du lieu" << endl;
+    cout << "[3] Sua du lieu" << endl;
+    cout << "[4] Tim kiem du lieu" << endl;
+    cout << "[5] Sap xep du lieu" << endl;
+    cout << "[6] Thong ke du lieu" << endl;
     cout << "Nhap ky tu tuong ung voi hanh dong ban muon thuc hien: ";
     cin >> symbol;
 
