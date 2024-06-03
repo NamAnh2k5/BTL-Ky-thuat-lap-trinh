@@ -18,6 +18,7 @@ void menu() {
     cout << "[#] Sap xep du lieu" << endl;
     cout << "[=] Thong ke du lieu" << endl;
     cout << "Nhap ky tu tuong ung voi hanh dong ban muon thuc hien: ";
+    cout << "test";
     cin >> symbol;
 
     switch(symbol) {
