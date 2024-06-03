@@ -23,27 +23,27 @@ void menu() {
     cin >> symbol;
 
     switch(symbol) {
-        case '+':
+        case '1':
             system("cls");
             cout << "add" << endl;
             break;
-        case '-':
+        case '2':
             system("cls");
             cout << "remove" << endl;
             break;
-        case '~':
+        case '3':
             system("cls");
             cout << "modify" << endl;
             break;
-        case '/':
+        case '4':
             system("cls");
             cout << "find" << endl;
             break;
-        case '#':
+        case '5':
             system("cls");
             cout << "arrange" << endl;
             break;
-        case '=':
+        case '6':
             system("cls");
             cout << "statistic" << endl;
             break;
