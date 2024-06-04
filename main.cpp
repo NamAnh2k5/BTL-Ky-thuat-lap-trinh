@@ -56,26 +56,27 @@ bool Login(){
 }
 
 bool UsersLevel(string level){
-
+    
 }
 
 
+
+
 void menu() {
-    char symbol;
+    char number;
     cout << "-------------------------------------------" << endl;
     cout << "=============QUẢN LÍ BỆNH NHÂN=============" << endl;
     cout << "-------------------------------------------" << endl;
-    cout << "1. Them thong tin benh nhan." << endl;
-    cout << "2. Sua thong tin benh nhan." << endl;
-    cout << "3. Xoa thong tin benh nhan." << endl;
-    cout << "4. Tim kiem ho so benh nhan." << endl;
-    cout << "5. " << endl;
-    cout << "6. Thêm hồ sơ bệnh án của bệnh nhân." << endl;
-    cout << "7. Sửa thông tin hồ sơ bệnh án của bệnh nhân." << endl;
-    cout << "8. Tìm kiếm vị trí hồ sơ bệnh án của bệnh nhân." << endl;
-    cin >> symbol;
+    cout << "[1]. Them thong tin benh nhan." << endl;
+    cout << "[2]. Sua thong tin benh nhan." << endl;
+    cout << "[3]. Xoa thong tin benh nhan." << endl;
+    cout << "[4]. Tim kiem ho so benh nhan." << endl;
+    cout << "[5]. Sap xep ho so benh nhan." << endl;
+    cout << "[6]. Thong ke ho so benh nhan." << endl;
+    cout << "[7]. Them nguoi dung." << endl;
+    cin >> number;
 
-    switch(symbol) {
+    switch(number) {
         case '1':
             system("cls");
             cout << "add" << endl;
