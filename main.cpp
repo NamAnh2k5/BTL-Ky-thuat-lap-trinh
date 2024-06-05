@@ -63,50 +63,52 @@ bool UsersLevel(string level){
 
 
 void menu() {
-    char number;
-    cout << "-------------------------------------------" << endl;
-    cout << "=============QUẢN LÍ BỆNH NHÂN=============" << endl;
-    cout << "-------------------------------------------" << endl;
-    cout << "[1]. Them thong tin benh nhan." << endl;
-    cout << "[2]. Sua thong tin benh nhan." << endl;
-    cout << "[3]. Xoa thong tin benh nhan." << endl;
-    cout << "[4]. Tim kiem ho so benh nhan." << endl;
-    cout << "[5]. Sap xep ho so benh nhan." << endl;
-    cout << "[6]. Thong ke ho so benh nhan." << endl;
-    cout << "[7]. Them nguoi dung." << endl;
-    cin >> number;
+    do{
+        char number;
+        cout << "-------------------------------------------" << endl;
+        cout << "=============QUẢN LÍ BỆNH NHÂN=============" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "[1]. Them thong tin benh nhan." << endl;
+        cout << "[2]. Sua thong tin benh nhan." << endl;
+        cout << "[3]. Xoa thong tin benh nhan." << endl;
+        cout << "[4]. Tim kiem ho so benh nhan." << endl;
+        cout << "[5]. Sap xep ho so benh nhan." << endl;
+        cout << "[6]. Thong ke ho so benh nhan." << endl;
+        cout << "[7]. Them nguoi dung." << endl;
+        cout << "[0]. Thoat chuong trinh"<<endl;
+        cin >> number;
 
-    switch(number) {
-        case '1':
-            system("cls");
-            cout << "add" << endl;
-            break;
-        case '2':
-            system("cls");
-            cout << "remove" << endl;
-            break;
-        case '3':
-            system("cls");
-            cout << "modify" << endl;
-            break;
-        case '4':
-            system("cls");
-            cout << "find" << endl;
-            break;
-        case '5':
-            system("cls");
-            cout << "arrange" << endl;
-            break;
-        case '6':
-            system("cls");
-            cout << "statistic" << endl;
-            break;
-        default:
-            system("cls");
-            cout << "khong tim thay hanh dong phu hop!";
-            break;
-    }
-
+        switch(number) {
+            case '1':
+                system("cls");
+                cout << "add" << endl;
+                break;
+            case '2':
+                system("cls");
+                cout << "remove" << endl;
+                break;
+            case '3':
+                system("cls");
+                cout << "modify" << endl;
+                break;
+            case '4':
+                system("cls");
+                cout << "find" << endl;
+                break;
+            case '5':
+                system("cls");
+                cout << "arrange" << endl;
+                break;
+            case '6':
+                system("cls");
+                cout << "statistic" << endl;
+                break;
+            default:
+                system("cls");
+                cout << "khong tim thay hanh dong phu hop!";
+                break;
+        }
+    }while(number!='0');
 }
 
 int main() {
