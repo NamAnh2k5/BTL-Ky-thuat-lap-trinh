@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include<string>
 using namespace std;
 struct Users{
     string mahoso;
@@ -14,6 +15,79 @@ void modify(); //hàm sửa dữ liệu
 void find(); //hàm tìm kiếm dữ liệu
 void arrange(); //hàm sắp xếp dữ liệu
 void statistic(); //hàm thống kê
+
+
+class MedicalRecord {
+public:
+    std::string ngay;
+    std::string chuanDoan;
+    std::string dieuTri;
+
+    MedicalRecord(std::string ngay, std::string chuanDoan, std::string dieuTri) {
+        this->ngay = ngay;
+        this->chuanDoan = chuanDoan;
+        this->dieuTri = dieuTri;
+    }
+};
+
+class Patient {
+public:
+    int id;
+    std::string ten;
+    int tuoi;
+    std::string gioiTinh;
+    std::vector<MedicalRecord> hoSoBenhAn;
+
+    Patient(int id, std::string ten, int tuoi, std::string gioiTinh) {
+        this->id = id;
+        this->ten = ten;
+        this->tuoi = tuoi;
+        this->gioiTinh = gioiTinh;
+    }
+
+    void themHoSoBenhAn(MedicalRecord record) {
+        hoSoBenhAn.push_back(record);
+    }
+
+    void inHoSoBenhAn() {
+        std::cout << "Ho so benh an cua " << ten << ":\n";
+        for (auto &record : hoSoBenhAn) {
+            std::cout << "Ngay: " << record.ngay << ", Chuan doan: " << record.chuanDoan << ", Dieu tri: " << record.dieuTri << "\n";
+        }
+    }
+};
+class HospitalManagementSystem {
+private:
+    std::vector<Patient> benhNhan;
+
+public:
+    void themBenhNhan(int id, std::string ten, int tuoi, std::string gioiTinh) {
+        Patient newPatient(id, ten, tuoi, gioiTinh);
+        benhNhan.push_back(newPatient);
+    }
+
+    void themHoSoBenhAn(int patientId, std::string ngay, std::string chuanDoan, std::string dieuTri) {
+        for (auto &patient : benhNhan) {
+            if (patient.id == patientId) {
+                MedicalRecord newRecord(ngay, chuanDoan, dieuTri);
+                patient.themHoSoBenhAn(newRecord);
+                return;
+            }
+        }
+        std::cout << "Không tìm thấy bệnh nhân với ID " << patientId << ".\n";
+    }
+
+    void inHoSoBenhAnBenhNhan(int patientId) {
+        for (auto &patient : benhNhan) {
+            if (patient.id == patientId) {
+                patient.inHoSoBenhAn();
+                return;
+            }
+        }
+        std::cout << "Không tìm thấy bệnh nhân với ID " << patientId << ".\n";
+    }
+};
+
 
 void addUsers(){
     Users user;
