@@ -113,7 +113,7 @@ void Patient::displayPatients(Patient* patients, int count) {
     cout << left << setw(20) << "Ho va ten"
          << setw(15) << "Ngay sinh"
          << setw(10) << "Gioi tinh"
-         << setw(30) << "Dia chi"
+         << right<< setw(30) << "Dia chi"
          << setw(15) << "So dien thoai"
          << setw(15) << "Ma benh nhan" << endl;
 
@@ -125,10 +125,12 @@ void Patient::displayPatients(Patient* patients, int count) {
              << setw(2) << setfill('0') << patients[i].getBirthday().getDay() << "/"
              << setw(2) << setfill('0') << patients[i].getBirthday().getMonth() << "/"
              << setw(4) << setfill('0') << patients[i].getBirthday().getYear() << setfill(' ') << setw(11)
-             << left << setw(10) << patients[i].getGender()
-             << left << setw(30) << patients[i].getAddress()
-             << left << setw(15) << patients[i].getPhoneNumber()
-             << left << setw(15) << patients[i].getPatientID() << endl;
+             << right << setw(10) << patients[i].getGender()
+             << right << setw(30) << patients[i].getAddress()
+             << right << setw(15) << patients[i].getPhoneNumber()
+             << right<< setw(15) << patients[i].getPatientID() << endl;
+        cout << setfill('-') << setw(105) << "-" << endl;
+        cout << setfill(' ');
     }
 }
 /*vector <Users> users;
