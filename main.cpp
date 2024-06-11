@@ -5,11 +5,10 @@
 using namespace std;
 
 class Date {
-public:
     int day;
     int month;
     int year;
-
+public:
     Date(int d = 1, int m = 1, int y = 1900) : day(d), month(m), year(y) {}
 
     int getDay() const { return day; }
