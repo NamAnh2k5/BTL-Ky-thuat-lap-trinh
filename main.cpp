@@ -196,16 +196,16 @@ void menu() {
     char number;
     do {
         cout << "-------------------------------------------" << endl;
-        cout << "=============QUẢN LÍ BỆNH NHÂN=============" << endl;
+        cout << "=============QUAN LI BENH NHAN=============" << endl;
         cout << "-------------------------------------------" << endl;
-        cout << "[1]. Thêm thông tin bênh nhân." << endl;
-        cout << "[2]. Hiển thị danh sach bệnh nhân." << endl;
-        cout << "[3]. Sua thong tin bệnh nhân." << endl;
-        cout << "[4]. Xoá thông tin bệnh nhân." << endl;
-        cout << "[5]. Tìm kiếm hồ sơ bệnh nhân." << endl;
-        cout << "[6]. Sắp xếp hồ sơ bệnh nhân." << endl;
-        cout << "[7]. Thông kê hồ sơ bệnh nhân." << endl;
-        cout << "[0]. Thoát chươnng trình" << endl;
+        cout << "[1]. Them thong tin benh nhan." << endl;
+        cout << "[2]. Hien thi danh sach benh nhan." << endl;
+        cout << "[3]. Sua thong tin benh nhan." << endl;
+        cout << "[4]. Xoa thong tin benh nhan." << endl;
+        cout << "[5]. Tim kiem ho so benh nhan." << endl;
+        cout << "[6]. Sap xep ho so benh nhan." << endl;
+        cout << "[7]. Thong ke ho so benh nhan." << endl;
+        cout << "[0]. Thoat chuong trinh" << endl;
         cin >> number;
 
         switch (number) {
