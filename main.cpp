@@ -55,6 +55,7 @@ public:
 
     static void addPatient(vector<Patient>& patients);
     static void displayPatients(const vector<Patient>& patients);
+    static void deletePatient(vector<Patient>& patients);
 };
 
 void Patient::addPatient(vector<Patient>& patients) {
@@ -121,6 +122,27 @@ void Patient::displayPatients(const vector<Patient>& patients) {
     }
 }
 
+void Patient::deletePatient(vector<Patient>& patients){
+    cout<<"\nNhap id ma ban muon xoa: ";
+    string id;
+    cin.ignore();
+    getline(cin,id);
+
+    bool found=false;
+    for(int i=0;i<patients.size();i++){
+        if(patients[i].getPatientID() == id){
+            patients.erase(patients.begin()+i);
+            found=true;
+            cout<<"Da xoa thanh cong benh nhan voi ID: "<<id<<endl;
+            break;
+        }
+    }
+
+    if(!found){
+        cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
+    }
+}
+
 void menu() {
     vector<Patient> patients;
 
@@ -155,7 +177,7 @@ void menu() {
                 break;
             case '4':
                 system("cls");
-                cout << " xoa ." << endl;
+                Patient::deletePatient(patients);
                 break;
             case '5':
                 system("cls");
