@@ -58,6 +58,7 @@ public:
     static void deletePatient(vector<Patient>& patients);
 };
 
+//Ham them benh nhan
 void Patient::addPatient(vector<Patient>& patients) {
     Patient newPatient;
     string input;
@@ -97,6 +98,7 @@ void Patient::addPatient(vector<Patient>& patients) {
     patients.push_back(newPatient);
 }
 
+//Ham hien thi benh nhan theo dong voi cac cot la cac muc
 void Patient::displayPatients(const vector<Patient>& patients) {
     cout << left << setw(20) << "Ho va ten"
          << setw(15) << "Ngay sinh"
@@ -122,6 +124,7 @@ void Patient::displayPatients(const vector<Patient>& patients) {
     }
 }
 
+//ham xoa benh nha
 void Patient::deletePatient(vector<Patient>& patients){
     cout<<"\nNhap id ma ban muon xoa: ";
     string id;
