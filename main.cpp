@@ -161,7 +161,6 @@ void menu() {
         cout << "[5]. Tim kiem ho so benh nhan." << endl;
         cout << "[6]. Sap xep ho so benh nhan." << endl;
         cout << "[7]. Thong ke ho so benh nhan." << endl;
-        cout << "[8]. Them nguoi dung." << endl;
         cout << "[0]. Thoat chuong trinh" << endl;
         cin >> number;
 
@@ -194,7 +193,6 @@ void menu() {
                 system("cls");
                 cout << " thong ke " << endl;
                 break;
-
             case '0':
                 cout << "Thoat chuong trinh." << endl;
                 break;
