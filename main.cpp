@@ -272,6 +272,7 @@ void menu() {
                 system("cls");
                 cout << "tim kiem." << endl;
                 break;
+                
             case '6':
                 system("cls");
                 cout << "sap xep " << endl;
