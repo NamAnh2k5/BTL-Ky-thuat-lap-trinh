@@ -112,9 +112,9 @@ void Patient::displayPatients(const vector<Patient>& patients) {
 
     for (const auto& patient : patients) {
         cout << left << setw(20) << patient.getPatientName()
-             << setw(2) << setfill('0') << patient.getBirthday().getDay() << "/"
-             << setw(2) << setfill('0') << patient.getBirthday().getMonth() << "/"
-             << setw(4) << setfill('0') << patient.getBirthday().getYear() << setfill(' ') << setw(11)
+             << setw(2) << patient.getBirthday().getDay() << "/"
+             << setw(2) << patient.getBirthday().getMonth() << "/"
+             << setw(4) << patient.getBirthday().getYear() << setfill(' ') << setw(11)
              << right << setw(10) << patient.getGender()
              << right << setw(30) << patient.getAddress()
              << right << setw(15) << patient.getPhoneNumber()
@@ -141,6 +141,92 @@ void Patient::deletePatient(vector<Patient>& patients){
         }
     }
 
+    if(!found){
+        cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
+    }
+}
+
+//hàm sửa
+void Patient::editPatient(vector<Patient>& patients){
+    cout<<"Nhap id cua benh nhan ma ban muon sua: ";
+    string id;
+    cin.ignore();
+    getline(cin,id);
+
+    bool found=false;
+    for(int i=0;i<patients.size();i++){
+        if(patients[i].getPatientID() == id){
+            found = true;
+            cout << "Chon muc can sua:" << endl;
+            cout << "[1]. Ten benh nhan" << endl;
+            cout << "[2]. Ngay sinh" << endl;
+            cout << "[3]. Gioi tinh" << endl;
+            cout << "[4]. Dia chi" << endl;
+            cout << "[5]. So dien thoai" << endl;
+            cout << "[0]. Quay lai menu" << endl;
+
+            char choice;
+            do{
+            cin >> choice;
+            cin.ignore(); 
+
+            switch (choice) {
+                case '1': {
+                    string newName;
+                    cout << "Nhap ten benh nhan moi: ";
+                    getline(cin, newName);
+                    patients[i].setPatientName(newName);
+                    cout << "Da sua ten benh nhan thanh cong." << endl;
+                    break;
+                }
+                case '2': {
+                    int day, month, year;
+                    cout << "Nhap ngay sinh moi:" << endl;
+                    cout << "  Ngay (dd): ";
+                    cin >> day;
+                    cout << "  Thang (mm): ";
+                    cin >> month;
+                    cout << "  Nam (yyyy): ";
+                    cin >> year;
+                    cin.ignore(); 
+                    patients[i].setBirthday(Date(day, month, year));
+                    cout << "Da sua ngay sinh thanh cong." << endl;
+                    break;
+                }
+                case '3': {
+                    string newGender;
+                    cout << "Nhap gioi tinh moi: ";
+                    getline(cin, newGender);
+                    patients[i].setGender(newGender);
+                    cout << "Da sua gioi tinh thanh cong." << endl;
+                    break;
+                }
+                case '4': {
+                    string newAddress;
+                    cout << "Nhap dia chi moi: ";
+                    getline(cin, newAddress);
+                    patients[i].setAddress(newAddress);
+                    cout << "Da sua dia chi thanh cong." << endl;
+                    break;
+                }
+                case '5': {
+                    string newPhone;
+                    cout << "Nhap so dien thoai moi: ";
+                    getline(cin, newPhone);
+                    patients[i].setPhoneNumber(newPhone);
+                    cout << "Da sua so dien thoai thanh cong." << endl;
+                    break;
+                }
+                case '0':
+                    cout << "Quay lai menu chinh." << endl;
+                    break;
+                default:
+                    cout << "Lua chon khong hop le." << endl;
+                    break;
+            }
+            }while(choice!='0');
+        }
+    }
     if(!found){
         cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
     }
