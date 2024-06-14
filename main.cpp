@@ -56,6 +56,7 @@ public:
     static void addPatient(vector<Patient>& patients);
     static void displayPatients(const vector<Patient>& patients);
     static void deletePatient(vector<Patient>& patients);
+    static void editPatient(vector<Patient>& patients);
 };
 
 //Ham them benh nhan
@@ -261,7 +262,7 @@ void menu() {
                 break;
             case '3':
                 system("cls");
-                cout << " sua ." << endl;
+                Patient::editPatient(patients);
                 break;
             case '4':
                 system("cls");
