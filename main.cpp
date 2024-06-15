@@ -2,24 +2,70 @@
 #include <string>
 #include <iomanip>
 #include <vector>
-#include<string>
 using namespace std;
-struct Users{
-    string mahoso;
-    string username;
-    string password;
-};
-vector <Users> users;
-void add(); //hàm nhập dữ liệu
-void remove(); //hàm xoá dữ liệu
-void modify(); //hàm sửa dữ liệu
-void find(); //hàm tìm kiếm dữ liệu
-void arrange(); //hàm sắp xếp dữ liệu
-void statistic(); //hàm thống kê
 
-void addUsers(){
-    Users user;
-    cout << "Nhap ma ho so: ";
+class Date {
+    int day;
+    int month;
+    int year;
+public:
+    Date(int d = 1, int m = 1, int y = 1900) : day(d), month(m), year(y) {}
+
+    int getDay() const { return day; }
+    int getMonth() const { return month; }
+    int getYear() const { return year; }
+
+    void setDay(int d) { day = d; }
+    void setMonth(int m) { month = m; }
+    void setYear(int y) { year = y; }
+
+    void setDate(int d, int m, int y) {
+        day = d;
+        month = m;
+        year = y;
+    }
+};
+
+class Patient {
+private:
+    string patientID;
+    string patientName;
+    string gender;
+    Date birthday;
+    string address;
+    string phoneNumber;
+
+public:
+    Patient(string id = "", string name = "", string g = "", Date b = Date(), string addr = "", string phone = "")
+        : patientID(id), patientName(name), gender(g), birthday(b), address(addr), phoneNumber(phone) {}
+
+    string getPatientID() const { return patientID; }
+    string getPatientName() const { return patientName; }
+    string getGender() const { return gender; }
+    Date getBirthday() const { return birthday; }
+    string getAddress() const { return address; }
+    string getPhoneNumber() const { return phoneNumber; }
+
+    void setPatientID(const string& id) { patientID = id; }
+    void setPatientName(const string& name) { patientName = name; }
+    void setGender(const string& g) { gender = g; }
+    void setBirthday(const Date& b) { birthday = b; }
+    void setAddress(const string& addr) { address = addr; }
+    void setPhoneNumber(const string& phone) { phoneNumber = phone; }
+
+    static void addPatient(vector<Patient>& patients);
+    static void displayPatients(const vector<Patient>& patients);
+    static void deletePatient(vector<Patient>& patients);
+    static void editPatient(vector<Patient>& patients);
+};
+
+//Ham them benh nhan
+void Patient::addPatient(vector<Patient>& patients) {
+    Patient newPatient;
+    string input;
+    int day, month, year;
+
+    cout << "Nhap ten benh nhan: ";
     cin.ignore();
     getline(cin, input);
     newPatient.setPatientName(input);
@@ -267,7 +313,7 @@ void menu() {
                 break;
             case '3':
                 system("cls");
-                cout << " sua ." << endl;
+                Patient::editPatient(patients);
                 break;
             case '4':
                 system("cls");
