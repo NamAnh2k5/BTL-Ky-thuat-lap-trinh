@@ -57,6 +57,10 @@ public:
     static void displayPatients(const vector<Patient>& patients);
     static void deletePatient(vector<Patient>& patients);
     static void editPatient(vector<Patient>& patients);
+    static void searchPatients(vector<Patient>& patients, char searchOption);
+    static void statisticsPatients(const vector<Patient>& patients);
+    static void searchPatients
+
 };
 
 //Ham them benh nhan
@@ -99,7 +103,7 @@ void Patient::addPatient(vector<Patient>& patients) {
     patients.push_back(newPatient);
 }
 //Tìm kiếm bệnh nhân theo tên hoặc ID
-void Patient::searchPatient(const vector<Patient>& patients, char searchOption) {
+void Patient::searchPatients(const vector<Patient>& patients, char searchOption) {
     if (searchOption != '1' && searchOption != '2') {
         cout << "Lua chon khong hop le." << endl;
         return;
@@ -283,6 +287,59 @@ void Patient::editPatient(vector<Patient>& patients){
         cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
     }
 }
+//Hàm tính tuổi
+int calculateAge(const Date& birthdate) {
+    time_t t = time(0); 
+    tm* now = localtime(&t);
+    int currentYear = now->tm_year + 1900;
+    int currentMonth = now->tm_mon + 1;
+    int currentDay = now->tm_mday;
+
+    int age = currentYear - birthdate.getYear();
+    if (currentMonth < birthdate.getMonth() || (currentMonth == birthdate.getMonth() && currentDay < birthdate.getDay())) {
+        age--;
+    }
+    return age;
+}
+
+//Hàm thống kê bệnh nhân
+void Patient::statisticsPatients(const vector<Patient>& patients) {
+    int choice;
+    cout << "[1]. Thong ke benh nhan theo do tuoi." << endl;
+    cout << "[2]. Thong ke benh nhan theo gioi tinh." << endl;
+    cout << "Nhap lua chon: ";
+    cin >> choice;
+
+    switch (choice) {
+        case 1: {
+            int under15 = 0, between15And65 = 0, over65 = 0;
+            for (const auto& patient : patients) {
+                int age = calculateAge(patient.getBirthday());
+                if (age < 15) under15++;
+                else if (age <= 65) between15And65++;
+                else over65++;
+            }
+            cout << "So luong benh nhan duoi 15 tuoi: " << under15 << endl;
+            cout << "So luong benh nhan tu 15 den 65 tuoi: " << between15And65 << endl;
+            cout << "So luong benh nhan tren 65 tuoi: " << over65 << endl;
+            break;
+        }
+        case 2: {
+            int male = 0, female = 0;
+            for (const auto& patient : patients) {
+                if (patient.getGender() == "Nam") male++;
+                else if (patient.getGender() == "Nu") female++;
+            }
+            cout << "So luong benh nhan nam: " << male << endl;
+            cout << "So luong benh nhan nu: " << female << endl;
+            break;
+        }
+        default:
+            cout << "Lua chon khong hop le!" << endl;
+            break;
+    }
+}
+
 
 void menu() {
     vector<Patient> patients;
