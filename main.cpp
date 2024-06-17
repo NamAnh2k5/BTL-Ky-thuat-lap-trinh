@@ -57,9 +57,8 @@ public:
     static void displayPatients(const vector<Patient>& patients);
     static void deletePatient(vector<Patient>& patients);
     static void editPatient(vector<Patient>& patients);
-    static void searchPatients(vector<Patient>& patients, char searchOption);
+    static void searchPatients(const vector<Patient>& patients, char searchOption);
     static void statisticsPatients(const vector<Patient>& patients);
-    static void searchPatients
 
 };
 
