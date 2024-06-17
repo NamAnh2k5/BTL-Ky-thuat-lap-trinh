@@ -2,6 +2,8 @@
 #include <string>
 #include <iomanip>
 #include <vector>
+#include <fstream>
+
 using namespace std;
 
 class Date {
@@ -179,7 +181,7 @@ void Patient::displayPatients(const vector<Patient>& patients) {
     }
 }
 
-//ham xoa benh nha
+//ham xoa benh nhan
 void Patient::deletePatient(vector<Patient>& patients){
     cout<<"\nNhap id ma ban muon xoa: ";
     string id;
@@ -340,8 +342,167 @@ void Patient::statisticsPatients(const vector<Patient>& patients) {
 }
 
 
+void saveFile(const vector<Patient>& patients) {
+    ofstream output;
+    output.open("data/dulieu-benhnhan.txt");
+    //Dòng đầu tiên sẽ lưu lại số lượng các bệnh án có trong file, sau các dòng sau sẽ là các bệnh án, thuộc tính đầu tiên của mỗi bênh án là mã bệnh án.
+    output << patients.size() << "\n";
+    //<Mã bệnh án>, <tên bệnh nhân>, <ngày/tháng/năm sinh>, <giới tính>, <địa chỉ>, <số điện thoại>
+    for (const auto& patient : patients) {
+        output << patient.getPatientID() << ","
+             << patient.getPatientName() << ","
+             << patient.getBirthday().getDay() << "/"
+             << patient.getBirthday().getMonth() << "/"
+             << patient.getBirthday().getYear() << ","
+             << patient.getGender() << ","
+             << patient.getAddress() << ","
+             << patient.getPhoneNumber() << endl;
+    }
+    output.close();
+}
+
+void readFile(vector<Patient>& patients) {
+    // ifstream input;
+    // input.open("data/dulieu-benhan.txt");
+    // string data; //data là biến lấy dữ liệu của 1 dòng lưu trong file
+    // int commaCount=0; //Biến này để đếm số dấu ',' từ đó xác dịnh được thuộc tính đang đọc từ file là thuộc tính nào
+    // string parsing[3]={"","",""}; //Mảng này để lưu các thuộc tính đọc ra từ file
+    // int time[3] = {1,1,1}; //Mảng lưu thời gian được tách ra từ file
+    // int i=0; //i là biến chạy tăng dần để đọc từng kí tự data
+
+    // while(!input.eof()) {
+    //     getline(input,data);
+    //     //cout << data << endl;
+    //     cout << endl;
+
+    //     i=0;
+    //     commaCount = 0;
+    //     while(data[i] != '\0') {
+
+    //         if(data[i] != ',') { //Kiểm tra nếu không phải dấu ',' thì chèn ký tự vào cuối chuỗi
+    //         parsing[commaCount]+=data[i];
+    //         }
+
+    //         i++;
+            
+    //         if(data[i] == ',' || data[i] == '\0') { //Nếu kí tự hiện tại là dấu ',' hoặc rỗng '\0' thì hiển thị chuỗi sau đó reset chuỗi
+    //             if(commaCount == 2) {
+    //                 //cout << stoi(parsing[commaCount]) << endl; //chuyển đổi từ string về int để xử lý năm sinh (lưu ý: phải xác định chính xác vị trí chứa năm sinh, nếu xác định sai thì sẽ bị treo)
+    //                 int y=0;
+    //                 string temp;
+    //                 int slashCount = 0; //Đếm số gạch chéo để phân tách ngày tháng năm
+    //                 while(parsing[commaCount][y] != '\0') {
+    //                     temp += parsing[commaCount][y];
+    //                     if(parsing[commaCount][y] == '/') {
+    //                         time[slashCount] = stoi(temp);
+    //                         cout << time[slashCount] << endl;
+    //                         temp = "";
+    //                         slashCount++;
+    //                     }
+    //                     y++;
+    //                 }
+
+    //                 time[slashCount] = stoi(temp);
+    //                 cout << time[2] << endl;
+                
+    //             }
+    //             //cout << parsing[commaCount] << endl;
+    //             parsing[commaCount] = "";
+    //             commaCount++;
+    //         }
+    //     }
+
+    // }
+
+    Patient newPatient;
+    string inpatient;
+    ifstream input;
+    input.open("data/dulieu-benhnhan.txt");
+    string data; //data là biến lấy dữ liệu của 1 dòng lưu trong file
+    int commaCount=0; //Biến này để đếm số dấu ',' từ đó xác dịnh được thuộc tính đang đọc từ file là thuộc tính nào
+
+    const int numberInfor = 6;
+    string parsing[numberInfor]={"","","","","",""}; //Mảng này để lưu các thuộc tính đọc ra từ file (kích thước của bảng = số lượng các dữ liệu)
+    int time[3] = {1,1,1}; //Mảng lưu thời gian được tách ra từ file
+    int i=0; //i là biến chạy tăng dần để đọc từng kí tự data
+
+    getline(input, data);
+    cout << "so luong benh nhan: " << stoi(data) << endl;;
+    data = "";
+
+
+    while(!input.eof()) {
+        getline(input,data);
+        cout << data << endl;
+        cout << endl;
+
+        i=0;
+        commaCount = 0;
+        while(data[i] != '\0') {
+
+            if(data[i] != ',' && data[i] != '\0') { //Kiểm tra nếu không phải dấu ',' thì chèn ký tự vào cuối chuỗi
+            parsing[commaCount]+=data[i];
+            }
+
+            i++;
+            
+            if(data[i] == ',' || data[i] == '\0') { //Nếu kí tự hiện tại là dấu ',' hoặc rỗng '\0' thì hiển thị chuỗi sau đó reset chuỗi
+                if(commaCount == 2) { //thay đổi trị số này ứng với vị trí của ngày tháng năm được lưu trong file, CHƯƠNG TRÌNH BỊ TREO NẾU TRỊ SỐ SAI
+                    //cout << stoi(parsing[commaCount]) << endl; //chuyển đổi từ string về int để xử lý năm sinh (lưu ý: phải xác định chính xác vị trí chứa năm sinh, nếu xác định sai thì sẽ bị treo)
+                    int y=0;
+                    string temp;
+                    int slashCount = 0; //Biến đếm số gạch chéo để phân tách ngày tháng năm
+                    while(parsing[commaCount][y] != '\0') {
+                        temp += parsing[commaCount][y];
+                        if(parsing[commaCount][y] == '/') {
+                            time[slashCount] = stoi(temp);
+                            //cout << time[slashCount] << endl;
+                            temp = "";
+                            slashCount++;
+                        }
+                        y++;
+                    }
+
+                    time[slashCount] = stoi(temp);
+                    //cout << time[2] << endl;
+                
+                }
+                //cout << parsing[commaCount] << endl;
+                //parsing[commaCount] = "";
+                commaCount++;
+            }
+        }
+
+
+        if(parsing[0] != "") {
+            newPatient.setPatientID(parsing[0]);
+            cout << newPatient.getPatientID() << endl;
+            newPatient.setPatientName(parsing[1]);
+            cout << newPatient.getPatientName() << endl;
+            newPatient.setBirthday(Date(time[0], time[1], time[2]));
+            newPatient.setGender(parsing[3]);
+            cout << newPatient.getGender() << endl;
+            newPatient.setAddress(parsing[4]);
+            cout << newPatient.getAddress() << endl;
+            newPatient.setPhoneNumber(parsing[5]);
+            cout << newPatient.getPhoneNumber() << endl;
+            patients.push_back(newPatient);
+        }
+
+        for(int i=0; i<numberInfor; i++) {
+            parsing[i] = "";
+        }
+    }
+
+    input.close();
+
+}
+
+
+
 void menu() {
     vector<Patient> patients;
+    readFile(patients);
 
     char number;
     do {
@@ -389,6 +550,7 @@ void menu() {
                 break;
             case '0':
                 cout << "Thoat chuong trinh." << endl;
+                saveFile(patients);
                 break;
             default:
                 system("cls");
