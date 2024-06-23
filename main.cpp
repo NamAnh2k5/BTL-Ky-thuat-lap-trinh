@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -61,6 +62,8 @@ public:
     static void editPatient(vector<Patient>& patients);
     static void searchPatients(const vector<Patient>& patients, char searchOption);
     static void statisticsPatients(const vector<Patient>& patients);
+    static void sortPatientsByName(const vector<Patient>& patients);
+    static void sortPatientsByID(const vector<Patient>& patients);
 
 };
 
@@ -129,7 +132,7 @@ void Patient::searchPatients(const vector<Patient>& patients, char searchOption)
             }
         }
         if (!found)
-            cout << "Khong tim thay benh nhan voi ma so " << id << endl;
+            cout << "Khong tim thay benh nhan voi ma so: " << id << endl;
     } else if (searchOption == '2') {
         string name;
         cout << "Nhap ten benh nhan can tim kiem: ";
@@ -150,7 +153,7 @@ void Patient::searchPatients(const vector<Patient>& patients, char searchOption)
             }
         }
         if (!found)
-            cout << "Khong tim thay benh nhan voi ten " << name << endl;
+            cout << "Khong tim thay benh nhan voi ten: " << name << endl;
     }
 }
 
@@ -183,7 +186,7 @@ void Patient::displayPatients(const vector<Patient>& patients) {
 
 //ham xoa benh nhan
 void Patient::deletePatient(vector<Patient>& patients){
-    cout<<"\nNhap id ma ban muon xoa: ";
+    cout<<"\nNhap ID ma ban muon xoa: ";
     string id;
     cin.ignore();
     getline(cin,id);
@@ -205,7 +208,7 @@ void Patient::deletePatient(vector<Patient>& patients){
 
 //hàm sửa
 void Patient::editPatient(vector<Patient>& patients){
-    cout<<"Nhap id cua benh nhan ma ban muon sua: ";
+    cout<<"Nhap ID cua benh nhan ma ban muon sua: ";
     string id;
     cin.ignore();
     getline(cin,id);
@@ -302,6 +305,19 @@ int calculateAge(const Date& birthdate) {
     }
     return age;
 }
+
+// // Hàm sắp xếp bệnh nhân theo tên và ID
+// void Patient::sortPatientsByName(vector<Patient>& patients) {
+//     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+//         return a.getPatientName() < b.getPatientName();
+//     });
+// }
+
+// void Patient::sortPatientsByID(vector<Patient>& patients) {
+//     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+//         return a.getPatientID() < b.getPatientID();
+//     });
+// }
 
 //Hàm thống kê bệnh nhân
 void Patient::statisticsPatients(const vector<Patient>& patients) {
@@ -427,7 +443,7 @@ void readFile(vector<Patient>& patients) {
     int i=0; //i là biến chạy tăng dần để đọc từng kí tự data
 
     getline(input, data);
-    cout << "so luong benh nhan: " << stoi(data) << endl;;
+    cout << "So luong benh nhan: " << stoi(data) << endl;;
     data = "";
 
 
@@ -514,10 +530,12 @@ void menu() {
         cout << "[3]. Sua thong tin benh nhan." << endl;
         cout << "[4]. Xoa thong tin benh nhan." << endl;
         cout << "[5]. Tim kiem ho so benh nhan." << endl;
-        cout << "[6]. Sap xep ho so benh nhan." << endl;
-        cout << "[7]. Thong ke ho so benh nhan." << endl;
+        cout << "[6]. Sap xep ho so benh nhan theo ten." << endl;
+        cout << "[7]. Sap xep ho so benh nhan theo ID." << endl;
+        cout << "[8]. Thong ke ho so benh nhan." << endl;
         cout << "[0]. Thoat chuong trinh" << endl;
         cin >> number;
+        cin.ignore();
 
         switch (number) {
             case '1':
@@ -538,23 +556,32 @@ void menu() {
                 break;
             case '5':
                 system("cls");
-                cout << "tim kiem." << endl;
+                cout<<"tim kiem";
+                //Patient::searchPatients(patients);
                 break;
             case '6':
                 system("cls");
-                cout << "sap xep " << endl;
+                // Patient::sortPatientsByName(patients);
+                // cout << "Da sap xep danh sach benh nhan theo ten." << endl;
+                // Patient::displayPatients(patients); 
                 break;
             case '7':
                 system("cls");
-                cout << " thong ke " << endl;
+                // Patient::sortPatientsByID(patients);
+                // cout << "Da sap xep danh sach benh nhan theo ID." << endl;
+                break;
+            case '8':
+                system("cls");
+                // Patient::statisticsPatients(patients);
                 break;
             case '0':
                 cout << "Thoat chuong trinh." << endl;
                 saveFile(patients);
+                cout << "Cam on ban da su dung chuong trinh!";
                 break;
             default:
                 system("cls");
-                cout << "Khong tim thay hanh dong phu hop!" << endl;
+                cout << "Lua chon khong hop le. Vui long chon lai!" << endl;
                 break;
         }
     } while (number != '0');

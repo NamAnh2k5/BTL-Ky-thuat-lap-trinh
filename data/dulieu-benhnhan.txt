@@ -1,3 +1,4 @@
 2
 1298bjaf,nguyen van a,12/12/12,nam,cau giay,098212498
 jaksfh214,nguyen van b,22/12/2000,nu,bach mai,01287541
+1234, Nguyen Van C, 27/8/1999, nam, Ba Dinh, 0986686999
