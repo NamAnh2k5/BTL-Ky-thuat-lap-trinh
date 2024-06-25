@@ -362,57 +362,7 @@ void saveFile(const vector<Patient>& patients) {
 }
 
 void readFile(vector<Patient>& patients) {
-    // ifstream input;
-    // input.open("data/dulieu-benhan.txt");
-    // string data; //data là biến lấy dữ liệu của 1 dòng lưu trong file
-    // int commaCount=0; //Biến này để đếm số dấu ',' từ đó xác dịnh được thuộc tính đang đọc từ file là thuộc tính nào
-    // string parsing[3]={"","",""}; //Mảng này để lưu các thuộc tính đọc ra từ file
-    // int time[3] = {1,1,1}; //Mảng lưu thời gian được tách ra từ file
-    // int i=0; //i là biến chạy tăng dần để đọc từng kí tự data
 
-    // while(!input.eof()) {
-    //     getline(input,data);
-    //     //cout << data << endl;
-    //     cout << endl;
-
-    //     i=0;
-    //     commaCount = 0;
-    //     while(data[i] != '\0') {
-
-    //         if(data[i] != ',') { //Kiểm tra nếu không phải dấu ',' thì chèn ký tự vào cuối chuỗi
-    //         parsing[commaCount]+=data[i];
-    //         }
-
-    //         i++;
-            
-    //         if(data[i] == ',' || data[i] == '\0') { //Nếu kí tự hiện tại là dấu ',' hoặc rỗng '\0' thì hiển thị chuỗi sau đó reset chuỗi
-    //             if(commaCount == 2) {
-    //                 //cout << stoi(parsing[commaCount]) << endl; //chuyển đổi từ string về int để xử lý năm sinh (lưu ý: phải xác định chính xác vị trí chứa năm sinh, nếu xác định sai thì sẽ bị treo)
-    //                 int y=0;
-    //                 string temp;
-    //                 int slashCount = 0; //Đếm số gạch chéo để phân tách ngày tháng năm
-    //                 while(parsing[commaCount][y] != '\0') {
-    //                     temp += parsing[commaCount][y];
-    //                     if(parsing[commaCount][y] == '/') {
-    //                         time[slashCount] = stoi(temp);
-    //                         cout << time[slashCount] << endl;
-    //                         temp = "";
-    //                         slashCount++;
-    //                     }
-    //                     y++;
-    //                 }
-
-    //                 time[slashCount] = stoi(temp);
-    //                 cout << time[2] << endl;
-                
-    //             }
-    //             //cout << parsing[commaCount] << endl;
-    //             parsing[commaCount] = "";
-    //             commaCount++;
-    //         }
-    //     }
-
-    // }
 
     Patient newPatient;
     string inpatient;
