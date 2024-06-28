@@ -62,8 +62,8 @@ public:
     static void editPatient(vector<Patient>& patients);
     static void searchPatients(const vector<Patient>& patients, char searchOption);
     static void statisticsPatients(const vector<Patient>& patients);
-    static void sortPatientsByName(const vector<Patient>& patients);
-    static void sortPatientsByID(const vector<Patient>& patients);
+    static void sortPatientsByName(vector<Patient>& patients);
+    static void sortPatientsByID(vector<Patient>& patients);
 
 };
 
@@ -306,18 +306,20 @@ int calculateAge(const Date& birthdate) {
     return age;
 }
 
-// // Hàm sắp xếp bệnh nhân theo tên và ID
-// void Patient::sortPatientsByName(vector<Patient>& patients) {
-//     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-//         return a.getPatientName() < b.getPatientName();
-//     });
-// }
+// Hàm sắp xếp bệnh nhân theo tên và ID
+void Patient::sortPatientsByName(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        return a.getPatientName() < b.getPatientName();
+    });
+    displayPatients(patients);
+}
 
-// void Patient::sortPatientsByID(vector<Patient>& patients) {
-//     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-//         return a.getPatientID() < b.getPatientID();
-//     });
-// }
+void Patient::sortPatientsByID(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        return a.getPatientID() < b.getPatientID();
+    });
+    displayPatients(patients);
+}
 
 //Hàm thống kê bệnh nhân
 void Patient::statisticsPatients(const vector<Patient>& patients) {
@@ -481,8 +483,7 @@ void menu() {
         cout << "[4]. Xoa thong tin benh nhan." << endl;
         cout << "[5]. Tim kiem ho so benh nhan." << endl;
         cout << "[6]. Sap xep ho so benh nhan theo ten." << endl;
-        cout << "[7]. Sap xep ho so benh nhan theo ID." << endl;
-        cout << "[8]. Thong ke ho so benh nhan." << endl;
+        cout << "[7]. Thong ke ho so benh nhan." << endl;
         cout << "[0]. Thoat chuong trinh" << endl;
         cin >> number;
         cin.ignore();
@@ -507,20 +508,20 @@ void menu() {
             case '5':
                 system("cls");
                 cout<<"tim kiem";
-                //Patient::searchPatients(patients);
                 break;
             case '6':
-                system("cls");
-                // Patient::sortPatientsByName(patients);
-                // cout << "Da sap xep danh sach benh nhan theo ten." << endl;
-                // Patient::displayPatients(patients); 
+                cout << "Chon kieu sap xep (1: Ten, 2: ID): ";
+                int sortOption;
+                cin >> sortOption;
+                if (sortOption == 1) {
+                    Patient::sortPatientsByName(patients);
+                } else if (sortOption == 2) {
+                    Patient::sortPatientsByID(patients);
+                } else {
+                    cout << "Lua chon khong hop le." << endl;
+                }
                 break;
             case '7':
-                system("cls");
-                // Patient::sortPatientsByID(patients);
-                // cout << "Da sap xep danh sach benh nhan theo ID." << endl;
-                break;
-            case '8':
                 system("cls");
                 // Patient::statisticsPatients(patients);
                 break;
