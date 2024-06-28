@@ -73,8 +73,17 @@ void Patient::addPatient(vector<Patient>& patients) {
     string input;
     int day, month, year;
 
-    cout << "Nhap ten benh nhan: ";
+    cout << "Nhap ma so benh nhan: ";
     cin.ignore();
+    getline(cin, input);
+    newPatient.setPatientID(input);
+    for (const auto& patient : patients) {
+        if (patient.getPatientID() == input) {
+            cout << "Ma benh nhan da ton tai. Vui long nhap lai." << endl;
+            return;
+        }
+    }
+    cout << "Nhap ten benh nhan: ";
     getline(cin, input);
     newPatient.setPatientName(input);
 
@@ -99,10 +108,6 @@ void Patient::addPatient(vector<Patient>& patients) {
     cout << "Nhap so dien thoai: ";
     getline(cin, input);
     newPatient.setPhoneNumber(input);
-
-    cout << "Nhap ma so benh nhan: ";
-    getline(cin, input);
-    newPatient.setPatientID(input);
 
     patients.push_back(newPatient);
 }
