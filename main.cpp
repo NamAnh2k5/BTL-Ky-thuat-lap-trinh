@@ -5,6 +5,7 @@
 #include <fstream>
 #include <algorithm>
 
+
 using namespace std;
 
 class Date {
@@ -29,6 +30,7 @@ public:
     }
 };
 
+
 class Patient {
 private:
     string patientID;
@@ -37,6 +39,7 @@ private:
     Date birthday;
     string address;
     string phoneNumber;
+
 
 public:
     Patient(string id = "", string name = "", string g = "", Date b = Date(), string addr = "", string phone = "")
@@ -48,6 +51,7 @@ public:
     Date getBirthday() const { return birthday; }
     string getAddress() const { return address; }
     string getPhoneNumber() const { return phoneNumber; }
+ 
 
     void setPatientID(const string& id) { patientID = id; }
     void setPatientName(const string& name) { patientName = name; }
@@ -55,6 +59,7 @@ public:
     void setBirthday(const Date& b) { birthday = b; }
     void setAddress(const string& addr) { address = addr; }
     void setPhoneNumber(const string& phone) { phoneNumber = phone; }
+
 
     static void addPatient(vector<Patient>& patients);
     static void displayPatients(const vector<Patient>& patients);
@@ -64,6 +69,7 @@ public:
     static void statisticsPatients(const vector<Patient>& patients);
     static void sortPatientsByName(vector<Patient>& patients);
     static void sortPatientsByID(vector<Patient>& patients);
+
 
 };
 
@@ -220,6 +226,7 @@ void Patient::editPatient(vector<Patient>& patients){
     cin.ignore();
     getline(cin,id);
 
+
     bool found=false;
     for(int i=0;i<patients.size();i++){
         if(patients[i].getPatientID() == id){
@@ -337,11 +344,14 @@ void Patient::sortPatientsByID(vector<Patient>& patients) {
 
 //Hàm thống kê bệnh nhân
 void Patient::statisticsPatients(const vector<Patient>& patients) {
+    
+
     int choice;
     cout << "[1]. Thong ke benh nhan theo do tuoi." << endl;
     cout << "[2]. Thong ke benh nhan theo gioi tinh." << endl;
     cout << "Nhap lua chon: ";
     cin >> choice;
+    cin.ignore();
 
     switch (choice) {
         case 1: {
@@ -485,7 +495,7 @@ void readFile(vector<Patient>& patients) {
 void menu() {
     vector<Patient> patients;
     readFile(patients);
-
+    
     char number;
     do {
         cout << "-------------------------------------------" << endl;
@@ -499,6 +509,7 @@ void menu() {
         cout << "[6]. Sap xep ho so benh nhan." << endl;
         cout << "[7]. Thong ke ho so benh nhan." << endl;
         cout << "[0]. Thoat chuong trinh" << endl;
+        cout << "-------------------------------------------" << endl;
         cout << "Nhap lua chon cua ban: ";
         cin >> number;
         cin.ignore();
@@ -522,8 +533,10 @@ void menu() {
                 break;
             case '5':
                 system("cls");
-                // Patient::searchPatients(patients);
-                cout << "tim kiem";
+                char searchOption;
+                cout << "Tim kiem theo (1) ID hoac (2) Ten? ";
+                cin >> searchOption;
+                Patient::searchPatients(patients, searchOption);
                 break;
             case '6':
                 cout << "Chon kieu sap xep (1: Ten, 2: ID): ";
@@ -539,7 +552,7 @@ void menu() {
                 break;
             case '7':
                 system("cls");
-                // Patient::statisticsPatients(patients);
+                Patient::statisticsPatients(patients);
                 break;
             case '0':
                 cout << "Thoat chuong trinh." << endl;
