@@ -74,7 +74,7 @@ void Patient::addPatient(vector<Patient>& patients) {
     int day, month, year;
 
     cout << "Nhap ma so benh nhan: ";
-    cin.ignore();
+    //cin.ignore(); //Dòng này làm mất kí tự đầu của mã số bệnh nhân khi nhập vào
     getline(cin, input);
     newPatient.setPatientID(input);
     for (const auto& patient : patients) {
@@ -215,13 +215,23 @@ void Patient::deletePatient(vector<Patient>& patients){
 void Patient::editPatient(vector<Patient>& patients){
     cout<<"Nhap ID cua benh nhan ma ban muon sua: ";
     string id;
-    cin.ignore();
+    //cin.ignore(); //Dòng này làm mất 1 kí tự khi nhập dữ mã bệnh nhân để tìm kiếm
     getline(cin,id);
 
     bool found=false;
     for(int i=0;i<patients.size();i++){
         if(patients[i].getPatientID() == id){
             found = true;
+
+            // Thêm phần hiển thị thông tin bệnh nhân để quá trình sửa trực quan hơn
+            cout << "----- Thong tin benh nhan ----- " << endl;
+            cout << "Ho va ten: " << patients[i].getPatientName() << endl;
+            cout << "Ngay sinh: " << patients[i].getBirthday().getDay() << "/" << patients[i].getBirthday().getMonth() << "/" << patients[i].getBirthday().getYear() << endl;
+            cout << "Gioi tinh: " << patients[i].getGender() << endl;
+            cout << "Dia chi: " << patients[i].getAddress() << endl;
+            cout << "So dien thoai: " << patients[i].getPhoneNumber() << endl;
+            cout << "Ma benh nhan: " << patients[i].getPatientID() << "\n\n";
+
             cout << "Chon muc can sua:" << endl;
             cout << "[1]. Ten benh nhan" << endl;
             cout << "[2]. Ngay sinh" << endl;
@@ -398,14 +408,15 @@ void readFile(vector<Patient>& patients) {
     int i=0; //i là biến chạy tăng dần để đọc từng kí tự data
 
     getline(input, data);
-    cout << "So luong benh nhan: " << stoi(data) << endl;;
+    // cout << "So luong benh nhan: " << stoi(data) << endl;;
     data = "";
 
 
     while(!input.eof()) {
         getline(input,data);
-        cout << data << endl;
-        cout << endl;
+        // 2 Dòng cout này để hiển thị các dòng data đọc ra từ file
+        // cout << data << endl;
+        // cout << endl;
 
         i=0;
         commaCount = 0;
@@ -445,18 +456,19 @@ void readFile(vector<Patient>& patients) {
         }
 
 
+        // Các dòng cout ở dưới để kiểm tra dữ liệu đã được đọc ra chưa
         if(parsing[0] != "") {
             newPatient.setPatientID(parsing[0]);
-            cout << newPatient.getPatientID() << endl;
+            //cout << newPatient.getPatientID() << endl;
             newPatient.setPatientName(parsing[1]);
-            cout << newPatient.getPatientName() << endl;
+            //cout << newPatient.getPatientName() << endl;
             newPatient.setBirthday(Date(time[0], time[1], time[2]));
             newPatient.setGender(parsing[3]);
-            cout << newPatient.getGender() << endl;
+            //cout << newPatient.getGender() << endl;
             newPatient.setAddress(parsing[4]);
-            cout << newPatient.getAddress() << endl;
+            //cout << newPatient.getAddress() << endl;
             newPatient.setPhoneNumber(parsing[5]);
-            cout << newPatient.getPhoneNumber() << endl;
+            //cout << newPatient.getPhoneNumber() << endl;
             patients.push_back(newPatient);
         }
 
