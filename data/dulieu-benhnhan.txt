@@ -1,23 +1,4 @@
-22
-BN001, Nguyen Van A,10/5/1980, Nam, Ha Noi, 0987654321
-BN002, Tran Thi B,15/7/1995, Nu, Hai Phong, 0909123456
-BN003, Le Van C,20/3/1978, Nam, Da Nang, 0978123456
-BN004, Pham Thi D,5/11/1982, Nu, Ho Chi Minh, 0918234567
-005, Hoang Van E,25/9/2008, Nam, Ha Noi, 0967123456
-006, Nguyen Thi F,12/6/1960, Nu, Hai Phong, 0987654321
-007, Tran Van G,8/4/1992, Nam, Da Nang, 0909123456
-008, Le Thi H,30/1/1985, Nu, Ho Chi Minh, 0978123456
-009, Pham Van I,18/8/1998, Nam, Ha Noi, 0918234567
-010, Hoang Thi K,3/12/1975, Nu, Hai Phong, 0967123456
-011, Nguyen Van L,22/11/1987, Nam, Da Nang, 0987654321
-012, Tran Thi M,14/9/1990, Nu, Ho Chi Minh, 0909123456
-013, Le Van N,7/7/2007, Nam, Ha Noi, 0978123456
-014, Pham Thi O,29/3/1972, Nu, Hai Phong, 0918234567
-015, Hoang Van P,2/10/1993, Nam, Da Nang, 0967123456
-016, Nguyen Thi Q,16/5/1989, Nu, Ho Chi Minh, 0987654321
-017, Tran Van R,11/8/1986, Nam, Ha Noi, 0909123456
-018, Le Thi S,27/6/2006, Nu, Hai Phong, 0978123456
-019, Pham Van T,9/4/1984, Nam, Da Nang, 0918234567
-020, Hoang Thi U,21/1/1981, Nu, Ho Chi Minh, 0967123456
-21,Nguyen Hai T,12/4/2007,Nam,Hung Yen,0987546841
-N022,Tran Ngoc D,25/6/2003,Nu,Nghe An,0983475623
+2
+1298bjaf,nguyen van a,12/12/12,nam,cau giay,098212498
+jaksfh214,nguyen van b,22/12/2000,nu,bach mai,01287541
+1234, Nguyen Van C, 27/8/1999, nam, Ba Dinh, 0986686999
