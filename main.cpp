@@ -335,8 +335,36 @@ void Patient::sortPatientsByName(vector<Patient>& patients) {
     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
         //return a.getPatientName() < b.getPatientName();
         // Chuyển tất cả ký tự trong tên thành chữ thường để so sánh
+
         string nameA = a.getPatientName();
         string nameB = b.getPatientName();
+
+
+        string temp = ""; //Biến tạm để lưu tên bệnh nhân
+        int i;
+        for(i = nameA.size()-1; i > 0; i--) { //Chạy ngược từ ký tự cuối lại để lấy tên của bệnh nhân
+            if(nameA[i] == ' ') break; //Gặp khoảng trống là dừng
+        }
+
+        // cout << i << endl;
+        for(int a = i+1; a < nameA.size(); a++) { //Gán từ sau vị trí khoảng trống nãy vừa tìm được đến hết string để lấy tên
+            temp+= nameA[a];
+        }
+        nameA = temp; //Gán temp vào nameA để chạy hàm ở dưới
+
+        //Tương tự như trên nhưng với nameB
+        temp = "";
+        //int i;
+        for(i = nameB.size()-1; i > 0; i--) {
+            if(nameB[i] == ' ') break;
+        }
+        // cout << i << endl;
+        for(int a = i+1; a < nameB.size(); a++) {
+            temp+= nameB[a];
+        }
+        nameB = temp;
+
+        
         transform(nameA.begin(), nameA.end(), nameA.begin(), ::tolower);
         transform(nameB.begin(), nameB.end(), nameB.begin(), ::tolower);
         return nameA < nameB;
