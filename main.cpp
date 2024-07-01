@@ -5,6 +5,7 @@
 #include <fstream>
 #include <algorithm>
 
+
 using namespace std;
 
 class Date {
@@ -29,6 +30,7 @@ public:
     }
 };
 
+
 class Patient {
 private:
     string patientID;
@@ -37,6 +39,7 @@ private:
     Date birthday;
     string address;
     string phoneNumber;
+
 
 public:
     Patient(string id = "", string name = "", string g = "", Date b = Date(), string addr = "", string phone = "")
@@ -48,6 +51,7 @@ public:
     Date getBirthday() const { return birthday; }
     string getAddress() const { return address; }
     string getPhoneNumber() const { return phoneNumber; }
+ 
 
     void setPatientID(const string& id) { patientID = id; }
     void setPatientName(const string& name) { patientName = name; }
@@ -56,14 +60,16 @@ public:
     void setAddress(const string& addr) { address = addr; }
     void setPhoneNumber(const string& phone) { phoneNumber = phone; }
 
+
     static void addPatient(vector<Patient>& patients);
     static void displayPatients(const vector<Patient>& patients);
     static void deletePatient(vector<Patient>& patients);
     static void editPatient(vector<Patient>& patients);
     static void searchPatients(const vector<Patient>& patients, char searchOption);
     static void statisticsPatients(const vector<Patient>& patients);
-    static void sortPatientsByName(const vector<Patient>& patients);
-    static void sortPatientsByID(const vector<Patient>& patients);
+    static void sortPatientsByName(vector<Patient>& patients);
+    static void sortPatientsByID(vector<Patient>& patients);
+
 
 };
 
@@ -74,7 +80,7 @@ void Patient::addPatient(vector<Patient>& patients) {
     int day, month, year;
 
     cout << "Nhap ma so benh nhan: ";
-    cin.ignore();
+    //cin.ignore(); //Dòng này làm mất kí tự đầu của mã số bệnh nhân khi nhập vào
     getline(cin, input);
     newPatient.setPatientID(input);
     for (const auto& patient : patients) {
@@ -120,7 +126,8 @@ void Patient::searchPatients(const vector<Patient>& patients, char searchOption)
     if (searchOption == '1') {
         string id;
         cout << "Nhap ma so benh nhan can tim kiem: ";
-        cin >> id;
+        cin.ignore();
+        getline(cin, id);
 
         bool found = false;
         for (const auto& patient : patients) {
@@ -168,9 +175,9 @@ void Patient::displayPatients(const vector<Patient>& patients) {
     cout << left << setw(20) << "Ho va ten"
          << setw(15) << "Ngay sinh"
          << setw(10) << "Gioi tinh"
-         << right<< setw(30) << "Dia chi"
-         << setw(15) << "So dien thoai"
-         << setw(15) << "Ma benh nhan" << endl;
+         << right<< setw(25) << "Dia chi"
+         << setw(17) << "So dien thoai"
+         << setw(18) << "Ma benh nhan" << endl;
 
     cout << setfill('-') << setw(105) << "-" << endl;
     cout << setfill(' ');
@@ -179,7 +186,7 @@ void Patient::displayPatients(const vector<Patient>& patients) {
         cout << left << setw(20) << patient.getPatientName()
              << setw(2) << patient.getBirthday().getDay() << "/"
              << setw(2) << patient.getBirthday().getMonth() << "/"
-             << setw(4) << patient.getBirthday().getYear() << setfill(' ') << setw(11)
+             << setw(2) << patient.getBirthday().getYear() << setfill(' ') << setw(11)
              << right << setw(10) << patient.getGender()
              << right << setw(30) << patient.getAddress()
              << right << setw(15) << patient.getPhoneNumber()
@@ -189,7 +196,8 @@ void Patient::displayPatients(const vector<Patient>& patients) {
     }
 }
 
-//ham xoa benh nhan
+
+//Ham xoa benh nhan
 void Patient::deletePatient(vector<Patient>& patients){
     cout<<"\nNhap ID ma ban muon xoa: ";
     string id;
@@ -215,13 +223,24 @@ void Patient::deletePatient(vector<Patient>& patients){
 void Patient::editPatient(vector<Patient>& patients){
     cout<<"Nhap ID cua benh nhan ma ban muon sua: ";
     string id;
-    cin.ignore();
+    //cin.ignore(); //Dòng này làm mất 1 kí tự khi nhập dữ mã bệnh nhân để tìm kiếm
     getline(cin,id);
+
 
     bool found=false;
     for(int i=0;i<patients.size();i++){
         if(patients[i].getPatientID() == id){
             found = true;
+
+            // Thêm phần hiển thị thông tin bệnh nhân để quá trình sửa trực quan hơn
+            cout << "----- Thong tin benh nhan ----- " << endl;
+            cout << "Ho va ten: " << patients[i].getPatientName() << endl;
+            cout << "Ngay sinh: " << patients[i].getBirthday().getDay() << "/" << patients[i].getBirthday().getMonth() << "/" << patients[i].getBirthday().getYear() << endl;
+            cout << "Gioi tinh: " << patients[i].getGender() << endl;
+            cout << "Dia chi: " << patients[i].getAddress() << endl;
+            cout << "So dien thoai: " << patients[i].getPhoneNumber() << endl;
+            cout << "Ma benh nhan: " << patients[i].getPatientID() << "\n\n";
+
             cout << "Chon muc can sua:" << endl;
             cout << "[1]. Ten benh nhan" << endl;
             cout << "[2]. Ngay sinh" << endl;
@@ -311,26 +330,38 @@ int calculateAge(const Date& birthdate) {
     return age;
 }
 
-// // Hàm sắp xếp bệnh nhân theo tên và ID
-// void Patient::sortPatientsByName(vector<Patient>& patients) {
-//     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-//         return a.getPatientName() < b.getPatientName();
-//     });
-// }
+// Hàm sắp xếp bệnh nhân theo tên và ID
+void Patient::sortPatientsByName(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        //return a.getPatientName() < b.getPatientName();
+        // Chuyển tất cả ký tự trong tên thành chữ thường để so sánh
+        string nameA = a.getPatientName();
+        string nameB = b.getPatientName();
+        transform(nameA.begin(), nameA.end(), nameA.begin(), ::tolower);
+        transform(nameB.begin(), nameB.end(), nameB.begin(), ::tolower);
+        return nameA < nameB;
+    });
+    displayPatients(patients);
+}
 
-// void Patient::sortPatientsByID(vector<Patient>& patients) {
-//     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-//         return a.getPatientID() < b.getPatientID();
-//     });
-// }
+
+void Patient::sortPatientsByID(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        return a.getPatientID() < b.getPatientID();
+    });
+    displayPatients(patients);
+}
 
 //Hàm thống kê bệnh nhân
 void Patient::statisticsPatients(const vector<Patient>& patients) {
+    
+
     int choice;
     cout << "[1]. Thong ke benh nhan theo do tuoi." << endl;
     cout << "[2]. Thong ke benh nhan theo gioi tinh." << endl;
     cout << "Nhap lua chon: ";
     cin >> choice;
+    cin.ignore();
 
     switch (choice) {
         case 1: {
@@ -370,11 +401,11 @@ void saveFile(const vector<Patient>& patients) {
     output << patients.size() << "\n";
     //<Mã bệnh án>, <tên bệnh nhân>, <ngày/tháng/năm sinh>, <giới tính>, <địa chỉ>, <số điện thoại>
     for (const auto& patient : patients) {
-        output << patient.getPatientID() << ","
+        output << setfill('0') << patient.getPatientID() << ","
              << patient.getPatientName() << ","
-             << patient.getBirthday().getDay() << "/"
-             << patient.getBirthday().getMonth() << "/"
-             << patient.getBirthday().getYear() << ","
+             << setfill('0') << patient.getBirthday().getDay() << "/"
+             << setfill('0') << patient.getBirthday().getMonth() << "/"
+             << setfill('0') << patient.getBirthday().getYear() << ","
              << patient.getGender() << ","
              << patient.getAddress() << ","
              << patient.getPhoneNumber() << endl;
@@ -398,14 +429,15 @@ void readFile(vector<Patient>& patients) {
     int i=0; //i là biến chạy tăng dần để đọc từng kí tự data
 
     getline(input, data);
-    cout << "So luong benh nhan: " << stoi(data) << endl;;
+    // cout << "So luong benh nhan: " << stoi(data) << endl;;
     data = "";
 
 
     while(!input.eof()) {
         getline(input,data);
-        cout << data << endl;
-        cout << endl;
+        // 2 Dòng cout này để hiển thị các dòng data đọc ra từ file
+        // cout << data << endl;
+        // cout << endl;
 
         i=0;
         commaCount = 0;
@@ -445,18 +477,19 @@ void readFile(vector<Patient>& patients) {
         }
 
 
+        // Các dòng cout ở dưới để kiểm tra dữ liệu đã được đọc ra chưa
         if(parsing[0] != "") {
             newPatient.setPatientID(parsing[0]);
-            cout << newPatient.getPatientID() << endl;
+            //cout << newPatient.getPatientID() << endl;
             newPatient.setPatientName(parsing[1]);
-            cout << newPatient.getPatientName() << endl;
+            //cout << newPatient.getPatientName() << endl;
             newPatient.setBirthday(Date(time[0], time[1], time[2]));
             newPatient.setGender(parsing[3]);
-            cout << newPatient.getGender() << endl;
+            //cout << newPatient.getGender() << endl;
             newPatient.setAddress(parsing[4]);
-            cout << newPatient.getAddress() << endl;
+            //cout << newPatient.getAddress() << endl;
             newPatient.setPhoneNumber(parsing[5]);
-            cout << newPatient.getPhoneNumber() << endl;
+            //cout << newPatient.getPhoneNumber() << endl;
             patients.push_back(newPatient);
         }
 
@@ -474,7 +507,7 @@ void readFile(vector<Patient>& patients) {
 void menu() {
     vector<Patient> patients;
     readFile(patients);
-
+    
     char number;
     do {
         cout << "-------------------------------------------" << endl;
@@ -485,10 +518,11 @@ void menu() {
         cout << "[3]. Sua thong tin benh nhan." << endl;
         cout << "[4]. Xoa thong tin benh nhan." << endl;
         cout << "[5]. Tim kiem ho so benh nhan." << endl;
-        cout << "[6]. Sap xep ho so benh nhan theo ten." << endl;
-        cout << "[7]. Sap xep ho so benh nhan theo ID." << endl;
-        cout << "[8]. Thong ke ho so benh nhan." << endl;
+        cout << "[6]. Sap xep ho so benh nhan." << endl;
+        cout << "[7]. Thong ke ho so benh nhan." << endl;
         cout << "[0]. Thoat chuong trinh" << endl;
+        cout << "-------------------------------------------" << endl;
+        cout << "Nhap lua chon cua ban: ";
         cin >> number;
         cin.ignore();
 
@@ -511,23 +545,26 @@ void menu() {
                 break;
             case '5':
                 system("cls");
-                cout<<"tim kiem";
-                //Patient::searchPatients(patients);
+                char searchOption;
+                cout << "Tim kiem theo (1) ID hoac (2) Ten? ";
+                cin >> searchOption;
+                Patient::searchPatients(patients, searchOption);
                 break;
             case '6':
-                system("cls");
-                // Patient::sortPatientsByName(patients);
-                // cout << "Da sap xep danh sach benh nhan theo ten." << endl;
-                // Patient::displayPatients(patients); 
+                cout << "Chon kieu sap xep (1: Ten, 2: ID): ";
+                int sortOption;
+                cin >> sortOption;
+                if (sortOption == 1) {
+                    Patient::sortPatientsByName(patients);
+                } else if (sortOption == 2) {
+                    Patient::sortPatientsByID(patients);
+                } else {
+                    cout << "Lua chon khong hop le." << endl;
+                }
                 break;
             case '7':
                 system("cls");
-                // Patient::sortPatientsByID(patients);
-                // cout << "Da sap xep danh sach benh nhan theo ID." << endl;
-                break;
-            case '8':
-                system("cls");
-                // Patient::statisticsPatients(patients);
+                Patient::statisticsPatients(patients);
                 break;
             case '0':
                 cout << "Thoat chuong trinh." << endl;
