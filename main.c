@@ -53,7 +53,7 @@ void addPatient(Patient* patients, int* patientCount) {
     int day, month, year;
 
     printf("Nhap ten benh nhan: ");
-    getchar(); // clear the buffer
+    //getchar(); // clear the buffer
     fgets(input, 100, stdin);
     input[strcspn(input, "\n")] = '\0'; // remove the newline character
     setPatientName(&newPatient, input);
@@ -95,13 +95,13 @@ void addPatient(Patient* patients, int* patientCount) {
 }
 
 void displayPatients(const Patient* patients, int patientCount) {
-    printf("%-20s %-15s %-10s %-30s %-15s %-15s\n", "Ho va ten", "Ngay sinh", "Gioi tinh", "Dia chi", "So dien thoai", "Ma benh nhan");
+    printf("%-20s %-15s %-10s %-30s %-15s %-15s\n", "Ho va ten", "Ngay sinh", "Gioi tinh", " Dia chi", "So dien thoai", "Ma benh nhan");
     for (int i = 0; i < 105; i++) printf("-");
     printf("\n");
 
     for (int i = 0; i < patientCount; i++) {
         const Patient* p = &patients[i];
-        printf("%-20s %02d/%02d/%4d   %-10s %-30s %-15s %-15s\n",
+        printf("%-20s %02d/%02d/%4d   %8s \t %-30s %-15s %-15s\n",
                p->patientName, p->birthday.day, p->birthday.month, p->birthday.year,
                p->gender, p->address, p->phoneNumber, p->patientID);
         for (int j = 0; j < 105; j++) printf("-");
@@ -127,6 +127,27 @@ void searchByName(const Patient* patients, int patientCount, const char* name) {
     }
     if (!found) {
         printf("Khong tim thay benh nhan voi ten %s\n", name);
+    }
+}
+
+void searchByID(const Patient* patients, int patientCount, const char* ID) {
+    int found = 0;
+    for (int i = 0; i < patientCount; i++) {
+        if (strcmp(patients[i].patientID, ID) == 0) {
+            found = 1;
+            printf("Tim thay benh nhan voi ID %s:\n", ID);
+            printf("%-20s %-15s %-10s %-30s %-15s %-15s\n", "Ho va ten", "Ngay sinh", "Gioi tinh", "Dia chi", "So dien thoai", "Ma benh nhan");
+            for (int i = 0; i < 105; i++) printf("-");
+            printf("\n");
+            printf("%-20s %02d/%02d/%4d   %-10s %-30s %-15s %-15s\n",
+                   patients[i].patientName, patients[i].birthday.day, patients[i].birthday.month, patients[i].birthday.year,
+                   patients[i].gender, patients[i].address, patients[i].phoneNumber, patients[i].patientID);
+            for (int i = 0; i < 105; i++) printf("-");
+            printf("\n");
+        }
+    }
+    if (!found) {
+        printf("Khong tim thay benh nhan voi ID %s\n", ID);
     }
 }
 
@@ -179,45 +200,86 @@ int main() {
     int year;
 
     while (1) {
-        printf("Menu:\n");
-        printf("1. Them benh nhan\n");
-        printf("2. Hien thi tat ca benh nhan\n");
-        printf("3. Tim kiem benh nhan theo ten\n");
-        printf("4. Tim kiem benh nhan theo nam sinh\n");
-        printf("5. Xoa benh nhan theo ma so\n");
-        printf("6. Thoat\n");
-        printf("Lua chon cua ban: ");
+        // printf("Menu:\n");
+        // printf("1. Them benh nhan\n");
+        // printf("2. Hien thi tat ca benh nhan\n");
+        // printf("3. Tim kiem benh nhan theo ten\n");
+        // printf("4. Tim kiem benh nhan theo nam sinh\n");
+        // printf("5. Xoa benh nhan theo ma so\n");
+        // printf("6. Thoat\n");
+        // printf("Lua chon cua ban: ");
+        
+
+        printf("-------------------------------------------\n");
+        printf("=============QUAN LI BENH NHAN=============\n");
+        printf("-------------------------------------------\n");
+        printf("[1]. Them thong tin benh nhan.\n");
+        printf("[2]. Hien thi danh sach benh nhan.\n");
+        printf("[3]. Sua thong tin benh nhan.\n");
+        printf("[4]. Xoa thong tin benh nhan.\n");
+        printf("[5]. Tim kiem ho so benh nhan.\n");
+        printf("[6]. Sap xep ho so benh nhan.\n");
+        printf("[7]. Thong ke ho so benh nhan.\n");
+        printf("[0]. Thoat chuong trinh\n");
+        printf("-------------------------------------------\n");
+        printf("Nhap lua chon cua ban: ");
+
         scanf("%d", &choice);
         getchar(); // clear the buffer
 
+
         switch (choice) {
             case 1:
+                system("cls");
                 addPatient(patients, &patientCount);
                 break;
             case 2:
+                system("cls");
                 displayPatients(patients, patientCount);
                 break;
             case 3:
-                printf("Nhap ten benh nhan can tim: ");
-                fgets(input, 100, stdin);
-                input[strcspn(input, "\n")] = '\0';
-                searchByName(patients, patientCount, input);
+                
                 break;
             case 4:
-                printf("Nhap nam sinh can tim: ");
-                scanf("%d", &year);
-                getchar(); // clear the buffer
-                searchByBirthYear(patients, patientCount, year);
-                break;
-            case 5:
                 printf("Nhap ma so benh nhan can xoa: ");
                 fgets(input, 50, stdin);
                 input[strcspn(input, "\n")] = '\0';
                 removePatientByID(patients, &patientCount, input);
                 break;
-            case 6:
+            case 5:
+                system("cls");
+                char searchOption;
+                printf("Tim kiem theo (1) ID hoac (2) Ten? \n");
+                scanf("%c",&searchOption);
+                switch(searchOption) {
+                    case '1':
+                        printf("Nhap ID benh nhan can tim: ");
+                        getchar(); //clear buffer
+                        fgets(input, 100, stdin);
+                        input[strcspn(input, "\n")] = '\0';
+                        searchByID(patients, patientCount, input);
+                        break;
+                    case '2':
+                        printf("Nhap ten benh nhan can tim: ");
+                        getchar(); //clear buffer
+                        fgets(input, 100, stdin);
+                        input[strcspn(input, "\n")] = '\0';
+                        searchByName(patients, patientCount, input);
+                        break;
+                    default:
+                        printf("Khong tim thay chuc nang phu hop!\n");
+                        break;
+                }
+                    // printf("Nhap nam sinh can tim: ");
+                    // scanf("%d", &year);
+                    // getchar(); // clear the buffer
+                    // searchByBirthYear(patients, patientCount, year);
+                break;
+                
+            case 0:
                 printf("Thoat chuong trinh.\n");
                 return 0;
+                break;
             default:
                 printf("Lua chon khong hop le. Vui long chon lai.\n");
                 break;
