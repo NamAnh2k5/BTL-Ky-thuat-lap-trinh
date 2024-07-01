@@ -60,7 +60,8 @@ public:
     void setAddress(const string& addr) { address = addr; }
     void setPhoneNumber(const string& phone) { phoneNumber = phone; }
 
-
+    
+    static string generatePatientID(const vector<Patient>& patients);
     static void addPatient(vector<Patient>& patients);
     static void displayPatients(const vector<Patient>& patients);
     static void deletePatient(vector<Patient>& patients);
@@ -69,9 +70,26 @@ public:
     static void statisticsPatients(const vector<Patient>& patients);
     static void sortPatientsByName(vector<Patient>& patients);
     static void sortPatientsByID(vector<Patient>& patients);
-
-
 };
+
+// Ham tao ma benh nhan dinh danh BNxx
+string Patient::generatePatientID(const vector<Patient>& patients) {
+    int maxID = 0;
+    for (const auto& patient : patients) {
+        string id = patient.getPatientID();
+        if (id.size() > 2 && id.substr(0, 2) == "BN") {
+            int num = stoi(id.substr(2));
+            if (num > maxID) {
+                maxID = num;
+            }
+        }
+    }
+    //return "BN" + to_string(maxID + 1);
+    ostringstream oss;
+    oss << "BN" << setw(3) << setfill('0') << (maxID + 1); // Đệm số 0 lên 3 chữ số
+    return oss.str();
+}
+
 
 //Ham them benh nhan
 void Patient::addPatient(vector<Patient>& patients) {
@@ -79,16 +97,20 @@ void Patient::addPatient(vector<Patient>& patients) {
     string input;
     int day, month, year;
 
-    cout << "Nhap ma so benh nhan: ";
+    string newID = generatePatientID(patients);
+    newPatient.setPatientID(newID);
+
+    cout << "Tao ma so benh nhan: " << newID << endl;
+    //cout << "Nhap ma so benh nhan: ";
     //cin.ignore(); //Dòng này làm mất kí tự đầu của mã số bệnh nhân khi nhập vào
-    getline(cin, input);
-    newPatient.setPatientID(input);
-    for (const auto& patient : patients) {
-        if (patient.getPatientID() == input) {
-            cout << "Ma benh nhan da ton tai. Vui long nhap lai." << endl;
-            return;
-        }
-    }
+    // getline(cin, input);
+    // newPatient.setPatientID(input);
+    // for (const auto& patient : patients) {
+    //     if (patient.getPatientID() == input) {
+    //         cout << "Ma benh nhan da ton tai. Vui long nhap lai." << endl;
+    //         return;
+    //     }
+    // }
     cout << "Nhap ten benh nhan: ";
     getline(cin, input);
     newPatient.setPatientName(input);
