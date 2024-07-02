@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 3
 BN002,Nghiem Duc An,22/12/2000,nu,bach mai,01287541
 BN003,Tran Do,27/8/1999,nam,Ba Dinh,0986686999
 BN001,Nguyen Van Viet,12/12/12,nam,cau giay,098212498
+=======
+6
+BN002,Nguyen Van C,27/8/1999,Nam,Ba Dinh,0986686999
+BN001,Nguyen Van A,12/4/2005,Nam,Ha Noi,0987675354
+BN003,Tran Van D,18/2/2004,Nam,Thanh Hoa,0987578532
+BN004,Hoang Trong T,26/7/2002,Nam,Hung Yen,0987654328
+>>>>>>> 806610c6eabf32685928dc3322daf90f0f57d974
