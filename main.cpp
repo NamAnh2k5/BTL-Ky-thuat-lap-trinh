@@ -315,20 +315,6 @@ void Patient::editPatient(vector<Patient>& patients){
         cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
     }
 }
-//Hàm tính tuổi
-int calculateAge(const Date& birthdate) {
-    time_t t = time(0); 
-    tm* now = localtime(&t);
-    int currentYear = now->tm_year + 1900;
-    int currentMonth = now->tm_mon + 1;
-    int currentDay = now->tm_mday;
-
-    int age = currentYear - birthdate.getYear();
-    if (currentMonth < birthdate.getMonth() || (currentMonth == birthdate.getMonth() && currentDay < birthdate.getDay())) {
-        age--;
-    }
-    return age;
-}
 
 // Hàm sắp xếp bệnh nhân theo tên và ID
 void Patient::sortPatientsByName(vector<Patient>& patients) {
@@ -372,6 +358,20 @@ void Patient::sortPatientsByName(vector<Patient>& patients) {
     displayPatients(patients);
 }
 
+//Hàm tính tuổi
+int calculateAge(const Date& birthdate) {
+    time_t t = time(0); 
+    tm* now = localtime(&t);
+    int currentYear = now->tm_year + 1900;
+    int currentMonth = now->tm_mon + 1;
+    int currentDay = now->tm_mday;
+
+    int age = currentYear - birthdate.getYear();
+    if (currentMonth < birthdate.getMonth() || (currentMonth == birthdate.getMonth() && currentDay < birthdate.getDay())) {
+        age--;
+    }
+    return age;
+}
 
 void Patient::sortPatientsByID(vector<Patient>& patients) {
     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
