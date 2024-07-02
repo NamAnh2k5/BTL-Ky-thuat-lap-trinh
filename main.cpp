@@ -223,7 +223,6 @@ void Patient::displayPatients(const vector<Patient>& patients) {
 void Patient::deletePatient(vector<Patient>& patients){
     cout<<"\nNhap ID ma ban muon xoa: ";
     string id;
-    cin.ignore();
     getline(cin,id);
 
     bool found=false;
@@ -355,7 +354,7 @@ int calculateAge(const Date& birthdate) {
 // Hàm sắp xếp bệnh nhân theo tên và ID
 void Patient::sortPatientsByName(vector<Patient>& patients) {
     sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-        //return a.getPatientName() < b.getPatientName();
+        
         // Chuyển tất cả ký tự trong tên thành chữ thường để so sánh
 
         string nameA = a.getPatientName();
