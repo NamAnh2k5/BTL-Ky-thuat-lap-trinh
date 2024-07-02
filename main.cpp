@@ -358,6 +358,12 @@ void Patient::sortPatientsByName(vector<Patient>& patients) {
     displayPatients(patients);
 }
 
+void Patient::sortPatientsByID(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        return a.getPatientID() < b.getPatientID();
+    });
+    displayPatients(patients);
+}
 //Hàm tính tuổi
 int calculateAge(const Date& birthdate) {
     time_t t = time(0); 
@@ -373,12 +379,7 @@ int calculateAge(const Date& birthdate) {
     return age;
 }
 
-void Patient::sortPatientsByID(vector<Patient>& patients) {
-    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-        return a.getPatientID() < b.getPatientID();
-    });
-    displayPatients(patients);
-}
+
 
 //Hàm thống kê bệnh nhân
 void Patient::statisticsPatients(const vector<Patient>& patients) {
