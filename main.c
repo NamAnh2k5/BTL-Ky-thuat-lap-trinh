@@ -51,7 +51,18 @@ void addPatient(Patient* patients, int* patientCount) {
     Patient newPatient;
     char input[200];
     int day, month, year;
-
+    
+    printf("Nhap ma so benh nhan: ");
+    fgets(input, 50, stdin);
+    input[strcspn(input, "\n")] = '\0';
+    setPatientID(&newPatient, input);
+    for (int i = 0; i < *patientCount; i++) {
+        if (strcmp(patients[i].patientID, input) == 0) {
+            printf("Ma benh nhan da ton tai. Vui long nhap lai.\n");
+            return;
+        }
+    }
+    
     printf("Nhap ten benh nhan: ");
     //getchar(); // clear the buffer
     fgets(input, 100, stdin);
@@ -85,10 +96,7 @@ void addPatient(Patient* patients, int* patientCount) {
     input[strcspn(input, "\n")] = '\0';
     setPhoneNumber(&newPatient, input);
 
-    printf("Nhap ma so benh nhan: ");
-    fgets(input, 50, stdin);
-    input[strcspn(input, "\n")] = '\0';
-    setPatientID(&newPatient, input);
+
 
     patients[*patientCount] = newPatient;
     (*patientCount)++;
