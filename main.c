@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
+
 
 typedef struct {
     int day;
@@ -123,10 +123,10 @@ void editPatientByID(Patient* patients, int patientCount) {
     char input[51];
     fgets(input, 50, stdin);
     input[strcspn(input, "\n")] = '\0';
-    bool found=false;
+    int found=0;
     for(int i=0;i<patientCount;i++){
         if(strcmp(patients[i].patientID, input) == 0){
-            found = true; 
+            found = 1; 
             Patient* p = &patients[i];
             char input[200];
             int day, month, year;
@@ -203,6 +203,24 @@ void editPatientByID(Patient* patients, int patientCount) {
         printf("Khong tim thay benh nhan voi ID tren");
     }
 }
+void removePatientByID(Patient* patients, int* patientCount, const char* id) {
+    int found = 0;
+    for (int i = 0; i < *patientCount; i++) {
+        if (strcmp(patients[i].patientID, id) == 0) {
+            found = 1;
+            for (int j = i; j < *patientCount - 1; j++) {
+                patients[j] = patients[j + 1];
+            }
+            (*patientCount)--;
+            printf("Da xoa benh nhan voi ma so %s\n", id);
+            return;
+        }
+    }
+    if (!found) {
+        printf("Khong tim thay benh nhan voi ma so %s\n", id);
+    }
+}
+
 void searchByName(const Patient* patients, int patientCount, const char* name) {
     int found = 0;
     for (int i = 0; i < patientCount; i++) {
@@ -245,23 +263,7 @@ void searchByID(const Patient* patients, int patientCount, const char* ID) {
     }
 }
 
-void removePatientByID(Patient* patients, int* patientCount, const char* id) {
-    int found = 0;
-    for (int i = 0; i < *patientCount; i++) {
-        if (strcmp(patients[i].patientID, id) == 0) {
-            found = 1;
-            for (int j = i; j < *patientCount - 1; j++) {
-                patients[j] = patients[j + 1];
-            }
-            (*patientCount)--;
-            printf("Da xoa benh nhan voi ma so %s\n", id);
-            return;
-        }
-    }
-    if (!found) {
-        printf("Khong tim thay benh nhan voi ma so %s\n", id);
-    }
-}
+
 
 
 int main() {
