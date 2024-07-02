@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 typedef struct {
@@ -262,9 +263,45 @@ void searchByID(const Patient* patients, int patientCount, const char* ID) {
         printf("Khong tim thay benh nhan voi ID %s\n", ID);
     }
 }
+// Hàm chuyển tên đầy đủ thành tên cuối cùng
+void getLastName(const char* fullName, char* lastName) {
+    const char* lastSpace = strrchr(fullName, ' ');
+    if (lastSpace) {
+        strcpy(lastName, lastSpace + 1);
+    } else {
+        strcpy(lastName, fullName);
+    }
+}
 
+// Hàm so sánh cho qsort
+int comparePatientsByName(const void* a, const void* b) {
+    const Patient* patientA = (const Patient*)a;
+    const Patient* patientB = (const Patient*)b;
+    
+    char lastNameA[100], lastNameB[100];
+    getLastName(patientA->patientName, lastNameA);
+    getLastName(patientB->patientName, lastNameB);
+    
+    // Chuyển tên thành chữ thường để so sánh
+    for (char* p = lastNameA; *p; ++p) *p = tolower(*p);
+    for (char* p = lastNameB; *p; ++p) *p = tolower(*p);
+    
+    return strcmp(lastNameA, lastNameB);
+}
 
-
+// Hàm sắp xếp bệnh nhân theo tên
+void sortPatientsByName(Patient* patients, int patientCount) {
+    qsort(patients, patientCount, sizeof(Patient), comparePatientsByName);
+}
+int comparePatientsByID(const void* a, const void* b) {
+    const Patient* patientA = (const Patient*)a;
+    const Patient* patientB = (const Patient*)b;
+    return strcmp(patientA->patientID, patientB->patientID);
+}
+// Hàm sắp xếp bệnh nhân theo ID
+void sortPatientsByID(Patient* patients, int patientCount) {
+    qsort(patients, patientCount, sizeof(Patient), comparePatientsByID);
+}
 
 int main() {
     Patient patients[100];
@@ -334,10 +371,20 @@ int main() {
                         printf("Khong tim thay chuc nang phu hop!\n");
                         break;
                 }
-                    // printf("Nhap nam sinh can tim: ");
-                    // scanf("%d", &year);
-                    // getchar(); // clear the buffer
-                    // searchByBirthYear(patients, patientCount, year);
+                break;
+            case 6:
+                system("cls");
+                int sortOption;
+                printf("Chon kieu sap xep (1: Ten, 2: ID): ");
+                scanf("%d", &sortOption);
+                getchar(); // clear the buffer
+                if (sortOption == 1) {
+                    sortPatientsByName(patients, patientCount);
+                } else if (sortOption == 2) {
+                    sortPatientsByID(patients, patientCount);
+                } else {
+                    printf("Lua chon khong hop le.\n");
+                }
                 break;
                 
             case 0:
