@@ -1,4 +1,10 @@
-3
-BN002,Nghiem Duc An,22/12/2000,nu,bach mai,01287541
-BN003,Tran Do,27/8/1999,nam,Ba Dinh,0986686999
-BN001,Nguyen Van Viet,12/12/2005,nam,cau giay,098212498
+BN002,Nghiem Duc An,22/12/2000,nu,Bach Mai,01287541
+BN003,Tran Do,27/08/1999,nam,Ba Dinh,0986686999
+BN001,Nguyen Van Viet,12/12/2012,nam,Cau Giay,098212498
+BN004,Le Thi Hong,15/03/1998,nu,Thanh Xuan,0912345678
+BN005,Tran Van Tuan,10/10/1997,nam,Dong Da,0908765432
+BN006,Nguyen Thi Lan,05/05/2001,nu,Hoan Kiem,0987654321
+BN007,Nguyen Van Viet,09/09/1999,nam,Hai Ba Trung,0976543210
+BN008,Le Van Khoa,20/11/2000,nam,Gia Lam,0934567890
+BN009,Tran Thi Mai,03/03/1998,nu,Long Bien,0945678901
+BN010,Tran Do,25/12/2002,nam,Ha Dong,0956789012
