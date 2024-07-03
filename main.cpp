@@ -383,8 +383,8 @@ void Patient::statisticsPatients(const vector<Patient>& patients) {
                 for(char &c : gender){
                     c = tolower(c);
                 }
-                if (patient.getGender() == "Nam") male++;
-                else if (patient.getGender() == "Nu") female++;
+                if (gender == "nam") male++;
+                else if (gender == "nu") female++;
             }
             cout << "So luong benh nhan nam: " << male << endl;
             cout << "So luong benh nhan nu: " << female << endl;
