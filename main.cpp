@@ -60,8 +60,7 @@ public:
     void setAddress(const string& addr) { address = addr; }
     void setPhoneNumber(const string& phone) { phoneNumber = phone; }
 
-    
-    static string generatePatientID(const vector<Patient>& patients);
+
     static void addPatient(vector<Patient>& patients);
     static void displayPatients(const vector<Patient>& patients);
     static void deletePatient(vector<Patient>& patients);
@@ -70,26 +69,9 @@ public:
     static void statisticsPatients(const vector<Patient>& patients);
     static void sortPatientsByName(vector<Patient>& patients);
     static void sortPatientsByID(vector<Patient>& patients);
+
+
 };
-
-// Ham tao ma benh nhan dinh danh BNxx
-string Patient::generatePatientID(const vector<Patient>& patients) {
-    int maxID = 0;
-    for (const auto& patient : patients) {
-        string id = patient.getPatientID();
-        if (id.size() > 2 && id.substr(0, 2) == "BN") {
-            int num = stoi(id.substr(2));
-            if (num > maxID) {
-                maxID = num;
-            }
-        }
-    }
-    //return "BN" + to_string(maxID + 1);
-    ostringstream oss;
-    oss << "BN" << setw(3) << setfill('0') << (maxID + 1); // Đệm số 0 lên 3 chữ số
-    return oss.str();
-}
-
 
 //Ham them benh nhan
 void Patient::addPatient(vector<Patient>& patients) {
@@ -97,20 +79,16 @@ void Patient::addPatient(vector<Patient>& patients) {
     string input;
     int day, month, year;
 
-    string newID = generatePatientID(patients);
-    newPatient.setPatientID(newID);
-
-    cout << "Tao ma so benh nhan: " << newID << endl;
-    //cout << "Nhap ma so benh nhan: ";
+    cout << "Nhap ma so benh nhan: ";
     //cin.ignore(); //Dòng này làm mất kí tự đầu của mã số bệnh nhân khi nhập vào
-    // getline(cin, input);
-    // newPatient.setPatientID(input);
-    // for (const auto& patient : patients) {
-    //     if (patient.getPatientID() == input) {
-    //         cout << "Ma benh nhan da ton tai. Vui long nhap lai." << endl;
-    //         return;
-    //     }
-    // }
+    getline(cin, input);
+    newPatient.setPatientID(input);
+    for (const auto& patient : patients) {
+        if (patient.getPatientID() == input) {
+            cout << "Ma benh nhan da ton tai. Vui long nhap lai." << endl;
+            return;
+        }
+    }
     cout << "Nhap ten benh nhan: ";
     getline(cin, input);
     newPatient.setPatientName(input);
@@ -139,7 +117,56 @@ void Patient::addPatient(vector<Patient>& patients) {
 
     patients.push_back(newPatient);
 }
+//Tìm kiếm bệnh nhân theo tên hoặc ID
+void Patient::searchPatients(const vector<Patient>& patients, char searchOption) {
+    if (searchOption != '1' && searchOption != '2') {
+        cout << "Lua chon khong hop le." << endl;
+        return;
+    }
+    if (searchOption == '1') {
+        string id;
+        cout << "Nhap ma so benh nhan can tim kiem: ";
+        cin.ignore();
+        getline(cin, id);
 
+        bool found = false;
+        for (const auto& patient : patients) {
+            if (patient.getPatientID() == id) {
+                found = true;
+                cout << "Thong tin benh nhan can tim: " << endl;
+                cout << "Ho va ten: " << patient.getPatientName() << endl;
+                cout << "Ngay sinh: " << patient.getBirthday().getDay() << "/" << patient.getBirthday().getMonth() << "/" << patient.getBirthday().getYear() << endl;
+                cout << "Gioi tinh: " << patient.getGender() << endl;
+                cout << "Dia chi: " << patient.getAddress() << endl;
+                cout << "So dien thoai: " << patient.getPhoneNumber() << endl;
+                cout << "Ma benh nhan: " << patient.getPatientID() << endl;
+                break;
+            }
+        }
+        if (!found)
+            cout << "Khong tim thay benh nhan voi ma so: " << id << endl;
+    } else if (searchOption == '2') {
+        string name;
+        cout << "Nhap ten benh nhan can tim kiem: ";
+        cin.ignore();
+        getline(cin, name);
+        bool found = false;
+        for (const auto& patient : patients) {
+            if (patient.getPatientName() == name) {
+                found = true;
+                cout << "Thong tin benh nhan can tim: " << endl;
+                cout << "Ho va ten: " << patient.getPatientName() << endl;
+                cout << "Ngay sinh: " << patient.getBirthday().getDay() << "/" << patient.getBirthday().getMonth() << "/" << patient.getBirthday().getYear() << endl;
+                cout << "Gioi tinh: " << patient.getGender() << endl;
+                cout << "Dia chi: " << patient.getAddress() << endl;
+                cout << "So dien thoai: " << patient.getPhoneNumber() << endl;
+                cout << "Ma benh nhan: " << patient.getPatientID() << endl;
+            }
+        }
+        if (!found)
+            cout << "Khong tim thay benh nhan voi ten: " << name << endl;
+    }
+}
 
 
 //Ham hien thi benh nhan theo dong voi cac cot la cac muc
@@ -168,6 +195,29 @@ void Patient::displayPatients(const vector<Patient>& patients) {
     }
 }
 
+
+//Ham xoa benh nhan
+void Patient::deletePatient(vector<Patient>& patients){
+    cout<<"\nNhap ID ma ban muon xoa: ";
+    string id;
+    cin.ignore();
+    getline(cin,id);
+
+    bool found=false;
+    for(int i=0;i<patients.size();i++){
+        if(patients[i].getPatientID() == id){
+            patients.erase(patients.begin()+i);
+            found=true;
+            cout<<"Da xoa thanh cong benh nhan voi ID: "<<id<<endl;
+            break;
+        }
+    }
+
+    if(!found){
+        cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
+    }
+}
+
 //hàm sửa
 void Patient::editPatient(vector<Patient>& patients){
     cout<<"Nhap ID cua benh nhan ma ban muon sua: ";
@@ -189,9 +239,7 @@ void Patient::editPatient(vector<Patient>& patients){
             cout << "Dia chi: " << patients[i].getAddress() << endl;
             cout << "So dien thoai: " << patients[i].getPhoneNumber() << endl;
             cout << "Ma benh nhan: " << patients[i].getPatientID() << "\n\n";
-            char choice;
-                  
-            do{     
+
             cout << "Chon muc can sua:" << endl;
             cout << "[1]. Ten benh nhan" << endl;
             cout << "[2]. Ngay sinh" << endl;
@@ -199,6 +247,9 @@ void Patient::editPatient(vector<Patient>& patients){
             cout << "[4]. Dia chi" << endl;
             cout << "[5]. So dien thoai" << endl;
             cout << "[0]. Quay lai menu" << endl;
+
+            char choice;
+            do{
             cin >> choice;
             cin.ignore(); 
 
@@ -263,129 +314,6 @@ void Patient::editPatient(vector<Patient>& patients){
         cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
     }
 }
-
-//Ham xoa benh nhan
-void Patient::deletePatient(vector<Patient>& patients){
-    cout<<"\nNhap ID ma ban muon xoa: ";
-    string id;
-    cin.ignore();
-    getline(cin,id);
-
-    bool found=false;
-    for(int i=0;i<patients.size();i++){
-        if(patients[i].getPatientID() == id){
-            patients.erase(patients.begin()+i);
-            found=true;
-            cout<<"Da xoa thanh cong benh nhan voi ID: "<<id<<endl;
-            break;
-        }
-    }
-
-    if(!found){
-        cout<<"Khong tim thay benh nhan co ID: "<<id<<endl;
-    }
-}
-
-//Tìm kiếm bệnh nhân theo tên hoặc ID
-void Patient::searchPatients(const vector<Patient>& patients, char searchOption) {
-    if (searchOption != '1' && searchOption != '2') {
-        cout << "Lua chon khong hop le." << endl;
-        return;
-    }
-    if (searchOption == '1') {
-        string id;
-        cout << "Nhap ma so benh nhan can tim kiem: ";
-        cin.ignore();
-        getline(cin, id);
-
-        bool found = false;
-        for (const auto& patient : patients) {
-            if (patient.getPatientID() == id) {
-                found = true;
-                cout << "Thong tin benh nhan can tim: " << endl;
-                cout << "Ho va ten: " << patient.getPatientName() << endl;
-                cout << "Ngay sinh: " << patient.getBirthday().getDay() << "/" << patient.getBirthday().getMonth() << "/" << patient.getBirthday().getYear() << endl;
-                cout << "Gioi tinh: " << patient.getGender() << endl;
-                cout << "Dia chi: " << patient.getAddress() << endl;
-                cout << "So dien thoai: " << patient.getPhoneNumber() << endl;
-                cout << "Ma benh nhan: " << patient.getPatientID() << endl;
-                break;
-            }
-        }
-        if (!found)
-            cout << "Khong tim thay benh nhan voi ma so: " << id << endl;
-    } else if (searchOption == '2') {
-        string name;
-        cout << "Nhap ten benh nhan can tim kiem: ";
-        cin.ignore();
-        getline(cin, name);
-
-        bool found = false;
-        for (const auto& patient : patients) {
-            if (patient.getPatientName() == name) {
-                found = true;
-                cout << "Thong tin benh nhan can tim: " << endl;
-                cout << "Ho va ten: " << patient.getPatientName() << endl;
-                cout << "Ngay sinh: " << patient.getBirthday().getDay() << "/" << patient.getBirthday().getMonth() << "/" << patient.getBirthday().getYear() << endl;
-                cout << "Gioi tinh: " << patient.getGender() << endl;
-                cout << "Dia chi: " << patient.getAddress() << endl;
-                cout << "So dien thoai: " << patient.getPhoneNumber() << endl;
-                cout << "Ma benh nhan: " << patient.getPatientID() << endl;
-            }
-        }
-        if (!found)
-            cout << "Khong tim thay benh nhan voi ten: " << name << endl;
-    }
-}
-
-// Hàm sắp xếp bệnh nhân theo tên và ID
-void Patient::sortPatientsByName(vector<Patient>& patients) {
-    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-        //return a.getPatientName() < b.getPatientName();
-        // Chuyển tất cả ký tự trong tên thành chữ thường để so sánh
-
-        string nameA = a.getPatientName();
-        string nameB = b.getPatientName();
-
-
-        string temp = ""; //Biến tạm để lưu tên bệnh nhân
-        int i;
-        for(i = nameA.size()-1; i > 0; i--) { //Chạy ngược từ ký tự cuối lại để lấy tên của bệnh nhân
-            if(nameA[i] == ' ') break; //Gặp khoảng trống là dừng
-        }
-
-        // cout << i << endl;
-        for(int a = i+1; a < nameA.size(); a++) { //Gán từ sau vị trí khoảng trống nãy vừa tìm được đến hết string để lấy tên
-            temp+= nameA[a];
-        }
-        nameA = temp; //Gán temp vào nameA để chạy hàm ở dưới
-
-        //Tương tự như trên nhưng với nameB
-        temp = "";
-        //int i;
-        for(i = nameB.size()-1; i > 0; i--) {
-            if(nameB[i] == ' ') break;
-        }
-        // cout << i << endl;
-        for(int a = i+1; a < nameB.size(); a++) {
-            temp+= nameB[a];
-        }
-        nameB = temp;
-
-        
-        transform(nameA.begin(), nameA.end(), nameA.begin(), ::tolower);
-        transform(nameB.begin(), nameB.end(), nameB.begin(), ::tolower);
-        return nameA < nameB;
-    });
-    displayPatients(patients);
-}
-
-void Patient::sortPatientsByID(vector<Patient>& patients) {
-    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
-        return a.getPatientID() < b.getPatientID();
-    });
-    displayPatients(patients);
-}
 //Hàm tính tuổi
 int calculateAge(const Date& birthdate) {
     time_t t = time(0); 
@@ -401,7 +329,27 @@ int calculateAge(const Date& birthdate) {
     return age;
 }
 
+// Hàm sắp xếp bệnh nhân theo tên và ID
+void Patient::sortPatientsByName(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        //return a.getPatientName() < b.getPatientName();
+        // Chuyển tất cả ký tự trong tên thành chữ thường để so sánh
+        string nameA = a.getPatientName();
+        string nameB = b.getPatientName();
+        transform(nameA.begin(), nameA.end(), nameA.begin(), ::tolower);
+        transform(nameB.begin(), nameB.end(), nameB.begin(), ::tolower);
+        return nameA < nameB;
+    });
+    displayPatients(patients);
+}
 
+
+void Patient::sortPatientsByID(vector<Patient>& patients) {
+    sort(patients.begin(), patients.end(), [](const Patient& a, const Patient& b) {
+        return a.getPatientID() < b.getPatientID();
+    });
+    displayPatients(patients);
+}
 
 //Hàm thống kê bệnh nhân
 void Patient::statisticsPatients(const vector<Patient>& patients) {
@@ -431,6 +379,10 @@ void Patient::statisticsPatients(const vector<Patient>& patients) {
         case 2: {
             int male = 0, female = 0;
             for (const auto& patient : patients) {
+                string gender = patient.getGender();
+                for(char &c : gender){
+                    c = tolowe(c);
+                }
                 if (patient.getGender() == "Nam") male++;
                 else if (patient.getGender() == "Nu") female++;
             }
@@ -443,7 +395,6 @@ void Patient::statisticsPatients(const vector<Patient>& patients) {
             break;
     }
 }
-
 
 void saveFile(const vector<Patient>& patients) {
     ofstream output;
@@ -465,7 +416,6 @@ void saveFile(const vector<Patient>& patients) {
 }
 
 void readFile(vector<Patient>& patients) {
-
 
     Patient newPatient;
     string inpatient;
