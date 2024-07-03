@@ -1,3 +1,4 @@
+10
 BN002,Nghiem Duc An,22/12/2000,nu,Bach Mai,01287541
 BN003,Tran Do,27/08/1999,nam,Ba Dinh,0986686999
 BN001,Nguyen Van Viet,12/12/2012,nam,Cau Giay,098212498

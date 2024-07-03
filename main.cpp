@@ -200,7 +200,8 @@ void Patient::displayPatients(const vector<Patient>& patients) {
 void Patient::deletePatient(vector<Patient>& patients){
     cout<<"\nNhap ID ma ban muon xoa: ";
     string id;
-    cin.ignore();
+    // Dòng này gây lỗi mất kí tự đầu
+    //cin.ignore();
     getline(cin,id);
 
     bool found=false;
