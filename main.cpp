@@ -381,7 +381,7 @@ void Patient::statisticsPatients(const vector<Patient>& patients) {
             for (const auto& patient : patients) {
                 string gender = patient.getGender();
                 for(char &c : gender){
-                    c = tolowe(c);
+                    c = tolower(c);
                 }
                 if (patient.getGender() == "Nam") male++;
                 else if (patient.getGender() == "Nu") female++;
